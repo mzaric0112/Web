@@ -5,19 +5,20 @@ import java.io.Serializable;
 import java.util.Date;
 
 //@Table(name = "KORISNIK")
-@Entity
+@MappedSuperclass
+//@Entity
 public class Korisnik implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "KORISNICKOIME")
+    @Column(name = "KORISNICKOIME", unique = true)
     private String korisnickoIme;
-    @Column
+    @Column(nullable = false)
     private String ime;
-    @Column
+    @Column(nullable = false)
     private String prezime;
-    @Column
+    @Column(nullable = false)
     private String lozinka;
     @Column
     private String telefon;
@@ -27,7 +28,7 @@ public class Korisnik implements Serializable{
     private Date datumRodjenja;
     @Column
     private boolean aktivan;
-    @Column
+    @Column(nullable = false)
     private Uloga uloga;
 
     public Korisnik() {

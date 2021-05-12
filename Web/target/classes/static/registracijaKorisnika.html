@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registracija novog korisnika</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+        body {font-family: "Open Sans"}
+        .container{
+            align-content: center;
+            align-self: center;
+            align-items: center;
+
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- w3-content defines a container for fixed size centered content,
+and is wrapped around the whole page content, except for the footer in this example -->
+<div class="w3-content" style="max-width:1600px">
+
+    <!-- Header -->
+    <header class="w3-container w3-center w3-padding-48 w3-white">
+        <h1 class="w3-xxlarge"><b>FITNESS CENTER</b></h1>
+        <h6 class="w3-xxxlarge"><span class="w3-tag" > SPARTA</span></h6>
+    </header>
+</div>
+<div class="container">
+    <h1 class="w3-xlarge"><b>Postanite nas novi korisnik</b></h1>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-12">
+            <div class="modal-content">
+                <h2 class="text-center">Popunite formu za registraciju</h2>
+                <form id="addKorisnikForm" >
+                    <div class="form-group1">
+                        <h5 for="korisnickoIme">Korisničko ime:</h5>
+                        <input id="korisnickoIme" name="korisnickoIme" type="text" class="registar" placeholder="Username">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="lozinka">Lozinka:</h5>
+                        <input id="lozinka" name="lozinka" type="password" class="registar" placeholder="Password">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="ime">Ime:</h5>
+                        <input id="ime" name="ime" type="text" class="registar" placeholder="Ime">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="prezime">Prezime:</h5>
+                        <input id="prezime" name="prezime"type="text" class="registar" placeholder="Prezime">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="kontaktTelefon">Kontakt:</h5>
+                        <input id="kontaktTelefon" name="kontaktTelefon"type="text" class="registar" placeholder="Kontakt">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="eadresa">E-mail:</h5>
+                        <input id="eadresa" name="eadresa"type="text" class="registar" placeholder="E-mail">
+                    </div>
+
+                    <div class="form-group1">
+                        <h5 for="datumRodjenja">Datum rođenja:</h5>
+                        <input id="datumRodjenja"  name="datumRodjenja" type="date" value="2020-05-21" class="registar datum" placeholder="Datum rodjenja">
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success">Registruj se</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

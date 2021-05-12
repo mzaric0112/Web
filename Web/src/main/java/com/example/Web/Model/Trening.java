@@ -2,22 +2,27 @@ package com.example.Web.Model;
 import javax.persistence.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Trening implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(nullable = false)
     private String naziv;
     @Column
     private String opis;
-    @Column
+    @Column(nullable = false)
     private String tipTreninga;
-    @Column
+    @Column(nullable = false)
     
     private int trajanje;
+
+    @OneToMany(mappedBy = "trening", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<OcenaTreninga> ocenaTreninga = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Trener trener;
@@ -27,6 +32,9 @@ public class Trening implements Serializable{
 
     @ManyToMany(mappedBy = "prijavljeniTreninzi")
     private List<Clan> prijavljeniClanovi = new ArrayList<Clan>();
+
+    @OneToMany(mappedBy = "trening", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<OdrzavanjeTreninga> odrzavanjeTreninga = new HashSet<>();
 
 
 

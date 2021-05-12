@@ -10,7 +10,7 @@ public class Trener extends Korisnik {
     @OneToMany(mappedBy = "trener", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Trening> listaTreninga = new HashSet<Trening>();
 
-    //da li treba da stoji column
+    @Column
     private float prosecnaOcena;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -24,14 +24,14 @@ public class Trener extends Korisnik {
         this.listaTreninga = listaTreninga;
     }
 
-    public float getProsecnaOcena() {
+   /* public float getProsecnaOcena() {
         return prosecnaOcena;
     }
 
     public void setProsecnaOcena(float prosecnaOcena) {
         this.prosecnaOcena = prosecnaOcena;
     }
-
+*/
     public FitnesCentar getFitnesCentar() {
         return fitnesCentar;
     }

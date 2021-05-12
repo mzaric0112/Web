@@ -14,11 +14,13 @@ public class TerminskaListaTreninga implements Serializable {
 
     @Column
     private int prijavljeniClanovi;
-    @Column
-    private OdrzavanjeTreninga odrzavanje;
+
 
     @ManyToMany(mappedBy = "terminskaListaTreninga")
     private List<Sala> sale = new ArrayList<Sala>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private OdrzavanjeTreninga odrzavanjeTreninga;
 
     public Long getId() {
         return id;
@@ -36,13 +38,7 @@ public class TerminskaListaTreninga implements Serializable {
         this.prijavljeniClanovi = prijavljeniClanovi;
     }
 
-    public OdrzavanjeTreninga getOdrzavanje() {
-        return odrzavanje;
-    }
 
-    public void setOdrzavanje(OdrzavanjeTreninga odrzavanje) {
-        this.odrzavanje = odrzavanje;
-    }
 
     public List<Sala> getSale() {
         return sale;

@@ -12,7 +12,9 @@ public class OcenaTreninga implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToOne(fetch = FetchType.EAGER)
     private Trening trening;
+    @Column
     private float ocena;
 
     @ManyToMany(mappedBy = "ocene")
