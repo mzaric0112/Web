@@ -2,9 +2,7 @@ package com.example.Web.Model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class TerminskaListaTreninga implements Serializable {
@@ -19,8 +17,8 @@ public class TerminskaListaTreninga implements Serializable {
     @ManyToMany(mappedBy = "terminskaListaTreninga")
     private List<Sala> sale = new ArrayList<Sala>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private OdrzavanjeTreninga odrzavanjeTreninga;
+    @ManyToMany(mappedBy = "terminskaLista")
+    private Set<OdrzavanjeTreninga> odrzavanjeTreninga = new HashSet<>();
 
     public Long getId() {
         return id;

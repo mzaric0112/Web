@@ -33,7 +33,7 @@ public class Trening implements Serializable{
     @ManyToMany(mappedBy = "prijavljeniTreninzi")
     private List<Clan> prijavljeniClanovi = new ArrayList<Clan>();
 
-    @OneToMany(mappedBy = "trening", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "trening")
     private Set<OdrzavanjeTreninga> odrzavanjeTreninga = new HashSet<>();
 
 

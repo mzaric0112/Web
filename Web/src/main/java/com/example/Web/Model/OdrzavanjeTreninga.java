@@ -19,10 +19,16 @@ public class OdrzavanjeTreninga implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Trening trening;
+    @ManyToMany
+    @JoinTable(name = "treninzi",
+            joinColumns = @JoinColumn(name = "odrzavanje_treninga_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "trening_id", referencedColumnName = "id"))
+    private Set<Trening> trening = new HashSet<>();
 
-    @OneToMany(mappedBy = "odrzavanjeTreninga", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
+    @JoinTable(name = "terminiTreninga",
+            joinColumns = @JoinColumn(name = "odrzavanje_treninga_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "terinska_lista_id", referencedColumnName = "id"))
     private Set<TerminskaListaTreninga> terminskaLista = new HashSet<>();
 
     public Long getId() {
@@ -33,13 +39,13 @@ public class OdrzavanjeTreninga implements Serializable {
         this.id = id;
     }
 
-    public Trening getTrening() {
+   /* public Trening getTrening() {
         return trening;
     }
 
     public void setTrening(Trening trening) {
         this.trening = trening;
-    }
+    }*/
 
     public double getCena() {
         return cena;
