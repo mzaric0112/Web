@@ -2,7 +2,14 @@ package com.example.Web.Model;
 
 import javax.persistence.*;
 import java.util.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 public class Trener extends Korisnik {
 
@@ -16,28 +23,6 @@ public class Trener extends Korisnik {
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
 
-    public Set<Trening> getListaTreninga() {
-        return listaTreninga;
-    }
-
-    public void setListaTreninga(Set<Trening> listaTreninga) {
-        this.listaTreninga = listaTreninga;
-    }
-
-   /* public float getProsecnaOcena() {
-        return prosecnaOcena;
-    }
-
-    public void setProsecnaOcena(float prosecnaOcena) {
-        this.prosecnaOcena = prosecnaOcena;
-    }
-*/
-    public FitnesCentar getFitnesCentar() {
-        return fitnesCentar;
-    }
-
-    public void setFitnesCentar(FitnesCentar fitnesCentar) {
-        this.fitnesCentar = fitnesCentar;
-    }
+    
 
 }

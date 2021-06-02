@@ -7,7 +7,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 
 public class FitnesCentar implements Serializable {
@@ -30,70 +37,9 @@ public class FitnesCentar implements Serializable {
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Sala> sale = new HashSet<Sala>();
 
+    //termin treba biti ne odrzavanje treninga
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OdrzavanjeTreninga> rasporedOdrzavanjaTreninga = new HashSet<OdrzavanjeTreninga>();
+   private Set<Termin> rasporedOdrzavanjaTreninga = new HashSet<>();
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getNaziv() {
-        return naziv;
-    }
-
-    public void setNaziv(String naziv) {
-        this.naziv = naziv;
-    }
-
-    public String getAdresa() {
-        return adresa;
-    }
-
-    public void setAdresa(String adresa) {
-        this.adresa = adresa;
-    }
-
-    public String getBrojCentrale() {
-        return brojCentrale;
-    }
-
-    public void setBrojCentrale(String brojCentrale) {
-        this.brojCentrale = brojCentrale;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<Trener> getTreneri() {
-        return treneri;
-    }
-
-    public void setTreneri(Set<Trener> treneri) {
-        this.treneri = treneri;
-    }
-
-    public Set<Sala> getSale() {
-        return sale;
-    }
-
-    public void setSale(Set<Sala> sale) {
-        this.sale = sale;
-    }
-
-    public Set<OdrzavanjeTreninga> getRasporedOdrzavanjaTreninga() {
-        return rasporedOdrzavanjaTreninga;
-    }
-
-    public void setRasporedOdrzavanjaTreninga(Set<OdrzavanjeTreninga> rasporedOdrzavanjaTreninga) {
-        this.rasporedOdrzavanjaTreninga = rasporedOdrzavanjaTreninga;
-    }
 }

@@ -3,8 +3,18 @@ package com.example.Web.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+@AllArgsConstructor
 @Entity
 public class Sala implements Serializable {
     @Id
@@ -15,53 +25,10 @@ public class Sala implements Serializable {
     @Column
     private String oznaka;
 
-    @ManyToMany
-    @JoinTable(name = "termini",
-            joinColumns = @JoinColumn(name = "sala_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "termin_id", referencedColumnName = "id"))
-    private List<TerminskaListaTreninga> terminskaListaTreninga = new ArrayList<TerminskaListaTreninga>();
-
+    @OneToMany(mappedBy = "sala", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Termin> terminskaListaTreninga = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public double getKapacitet() {
-        return kapacitet;
-    }
-
-    public void setKapacitet(double kapacitet) {
-        this.kapacitet = kapacitet;
-    }
-
-    public String getOznaka() {
-        return oznaka;
-    }
-
-    public void setOznaka(String oznaka) {
-        this.oznaka = oznaka;
-    }
-
-    public List<TerminskaListaTreninga> getTerminskaListaTreninga() {
-        return terminskaListaTreninga;
-    }
-
-    public void setTerminskaListaTreninga(ArrayList<TerminskaListaTreninga> terminskaListaTreninga) {
-        this.terminskaListaTreninga = terminskaListaTreninga;
-    }
-
-    public FitnesCentar getFitnesCentar() {
-        return fitnesCentar;
-    }
-
-    public void setFitnesCentar(FitnesCentar fitnesCentar) {
-        this.fitnesCentar = fitnesCentar;
-    }
-}
+   }
