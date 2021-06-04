@@ -12,7 +12,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 public class Trening implements Serializable{
     @Id
@@ -34,9 +33,25 @@ public class Trening implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     private Trener trener;
 
+    public Trening() {
+    }
 
+    public Trening(String naziv, String opis, String tipTreninga, int trajanje, Set<Termin> terminiTreninga, Trener trener) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.tipTreninga = tipTreninga;
+        this.trajanje = trajanje;
+        this.terminiTreninga = terminiTreninga;
+        this.trener = trener;
+    }
 
-
-
-
+    public Trening(String naziv, String opis, String tipTreninga, int trajanje, Trener trener) {
+        this.id = id;
+        this.naziv = naziv;
+        this.opis = opis;
+        this.tipTreninga = tipTreninga;
+        this.trajanje = trajanje;
+        this.trener = trener;
+    }
 }
