@@ -11,7 +11,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 //@Table(name = "KORISNIK")
 @MappedSuperclass
 //@Entity
@@ -41,5 +40,19 @@ public class Korisnik implements Serializable{
 
 
     public Korisnik() {
+    }
+
+    public Korisnik(String korisnickoIme,String lozinka, String ime, String prezime,
+                    Date datumRodjenja,  String email, String telefon,  Uloga uloga) {
+
+        this.korisnickoIme = korisnickoIme;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.lozinka = lozinka;
+        this.telefon = telefon;
+        this.email = email;
+        this.datumRodjenja = datumRodjenja;
+        this.aktivan = true;
+        this.uloga = uloga;
     }
 }

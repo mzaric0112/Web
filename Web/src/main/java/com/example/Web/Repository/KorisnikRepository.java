@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
-    void deleteById(Long id);
-    List<Korisnik> findAll();
-    //List<Korisnik> findByByIme(String ime);
-    //List<Korisnik> findByByPrezime(String prezime);
-    //List<Korisnik> findByByImeOrPrezime(String ime, String prezime);
+
+    List<Korisnik> findByByIme(String ime);
+    List<Korisnik> findByByImeOrderByIme(String ime);
+    List<Korisnik> findByByPrezime(String prezime);
+    List<Korisnik> findByByImeOrPrezime(String ime, String prezime);
+    List<Korisnik> findByKorisnickoIme(String korisnickoIme);
+    List<Korisnik> findByEmail(String email);
+
 }
