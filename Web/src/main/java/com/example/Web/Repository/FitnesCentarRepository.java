@@ -7,6 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FitnesCentarRepository extends JpaRepository<FitnesCentar, Long> {
-    void deleteById(Long id);
-    List<FitnesCentar> findAll();
+
+    List<FitnesCentar> findByNaziv(String naziv);
+    List<FitnesCentar> findByAdresa(String adresa);
+    List<FitnesCentar> findByEmail(String email);
+    List<FitnesCentar> findByBrojCentrale(String broj);
+
 }

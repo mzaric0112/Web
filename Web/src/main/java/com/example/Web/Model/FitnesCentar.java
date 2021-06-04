@@ -14,7 +14,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 
 public class FitnesCentar implements Serializable {
@@ -41,5 +40,29 @@ public class FitnesCentar implements Serializable {
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
    private Set<Termin> rasporedOdrzavanjaTreninga = new HashSet<>();
 
+    public FitnesCentar() {
+    }
 
+    public FitnesCentar(String naziv, String adresa, String brojCentrale, String email) {
+
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.brojCentrale = brojCentrale;
+        this.email = email;
+        this.rasporedOdrzavanjaTreninga = null;
+        this.sale = null;
+        this.treneri = null;
+    }
+
+    public FitnesCentar(Long id, String naziv, String adresa, String brojCentrale, String email,
+                        Set<Trener> treneri, Set<Sala> sale, Set<Termin> rasporedOdrzavanjaTreninga) {
+        this.id = id;
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.brojCentrale = brojCentrale;
+        this.email = email;
+        this.treneri = treneri;
+        this.sale = sale;
+        this.rasporedOdrzavanjaTreninga = rasporedOdrzavanjaTreninga;
+    }
 }
