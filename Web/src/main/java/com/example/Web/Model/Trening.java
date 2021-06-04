@@ -53,5 +53,6 @@ public class Trening implements Serializable{
         this.tipTreninga = tipTreninga;
         this.trajanje = trajanje;
         this.trener = trener;
+        this.terminiTreninga = null;
     }
 }
