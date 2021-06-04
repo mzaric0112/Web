@@ -9,7 +9,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 public class Trener extends Korisnik {
 
@@ -23,6 +22,16 @@ public class Trener extends Korisnik {
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
 
-    
+    public Trener(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja,
+                  String email, String telefon, Uloga uloga) {
+        super(korisnickoIme, lozinka, ime, prezime, datumRodjenja, email, telefon, uloga);
+    }
 
+    public Trener(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja, String email, String telefon,
+                  Uloga uloga, Set<Trening> listaTreninga, float prosecnaOcena, FitnesCentar fitnesCentar) {
+        super(korisnickoIme, lozinka, ime, prezime, datumRodjenja, email, telefon, uloga);
+        this.listaTreninga = listaTreninga;
+        this.prosecnaOcena = prosecnaOcena;
+        this.fitnesCentar = fitnesCentar;
+    }
 }

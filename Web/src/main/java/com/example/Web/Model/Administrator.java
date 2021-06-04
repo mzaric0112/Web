@@ -9,9 +9,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 public class Administrator extends Korisnik {
+    public Administrator() {
+    }
 
-
+    public Administrator(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja, String email,
+                         String telefon, Uloga uloga) {
+        super(korisnickoIme, lozinka, ime, prezime, datumRodjenja, email, telefon, uloga);
+    }
 }

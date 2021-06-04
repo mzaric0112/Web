@@ -30,7 +30,7 @@ public class TreningServiceImpl implements TreningService {
     }
 
     @Override
-    Trening create(Trening trening) throws Exception {
+    public Trening create(Trening trening) throws Exception {
         if(trening.getId() != null) {
             throw new Exception("ID must be null!");
         }
@@ -39,7 +39,7 @@ public class TreningServiceImpl implements TreningService {
     }
 
     @Override
-    Trening update(Trening trening) throws Exception {
+    public Trening update(Trening trening) throws Exception {
         Trening treningZaIzmenu = this.treningRepository.getOne(trening.getId());
         if(trening.getId() == null) {
             throw new Exception("Trening doesn't exist!");
@@ -49,11 +49,14 @@ public class TreningServiceImpl implements TreningService {
         treningZaIzmenu.setTrener(trening.getTrener());
         treningZaIzmenu.setTipTreninga(trening.getTipTreninga());
         treningZaIzmenu.setTrajanje(trening.getTrajanje());
+
+        Trening izmenjenTrening = this.treningRepository.save(treningZaIzmenu);
+        return izmenjenTrening;
     }
 
     @Override
-    void delete(Long id) {
-        this.treningRepository.deleteById(id);♦
+    public void delete(Long id) {
+        this.treningRepository.deleteById(id);
     }
 
 

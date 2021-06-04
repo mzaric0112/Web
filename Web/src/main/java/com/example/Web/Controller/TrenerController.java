@@ -1,9 +1,10 @@
 package com.example.Web.Controller;
 
 import com.example.Web.Model.Korisnik;
+import com.example.Web.Model.Trener;
 import com.example.Web.Model.dto.KorisnikDTO;
 import com.example.Web.Model.dto.KreiranjeKorisnikaDTO;
-import com.example.Web.Service.KorisnikService;
+import com.example.Web.Service.TrenerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,17 +16,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/users")
-public class KorisnikController {
-    private final KorisnikService korisnikService;
+public class TrenerController {
+    private final TrenerService trenerService;
 
     @Autowired
-    public KorisnikController(KorisnikService korisnikService) {this.korisnikService = korisnikService;}
+    public TrenerController(TrenerService trenerService) {this.trenerService = trenerService;}
 
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KorisnikDTO> getUser(@PathVariable("id") Long id)
     {
-        Korisnik korisnik = this.korisnikService.findOne(id);
+        Korisnik korisnik = this.trenerService.findOne(id);
         KorisnikDTO trazeniKorisnik = new KorisnikDTO();
         trazeniKorisnik.setId(korisnik.getId());
         trazeniKorisnik.setIme(korisnik.getIme());
@@ -40,11 +41,11 @@ public class KorisnikController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<KorisnikDTO>> getUsers() {
-        List<Korisnik> korisnici = this.korisnikService.findAll();
+        List<Trener> korisnici = this.trenerService.findAll();
 
         List<KorisnikDTO> trazeniKorisnici = new ArrayList<KorisnikDTO>();
 
-        for(Korisnik k : korisnici) {
+        for(Trener k : korisnici) {
             KorisnikDTO korisnik = new KorisnikDTO(k.getId(), k.getIme(), k.getPrezime(), k.getDatumRodjenja(),
                     k.getEmail(), k.getTelefon(),  k.getUloga());
             trazeniKorisnici.add(korisnik);
@@ -54,9 +55,9 @@ public class KorisnikController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> createUser(@RequestBody KreiranjeKorisnikaDTO kDTO) throws Exception {
-        Korisnik korisnik = new Korisnik(kDTO.getKorisnickoIme(), kDTO.getLozinka(), kDTO.getIme(), kDTO.getPrezime(),
+        Trener korisnik = new Trener(kDTO.getKorisnickoIme(), kDTO.getLozinka(), kDTO.getIme(), kDTO.getPrezime(),
                 kDTO.getDatumRodjenja(),kDTO.getEmail(), kDTO.getTelefon(),  kDTO.getUloga());
-        Korisnik noviKorisnik = this.korisnikService.create(korisnik);
+        Trener noviKorisnik = this.trenerService.create(korisnik);
         KreiranjeKorisnikaDTO korisnikDTO = new KreiranjeKorisnikaDTO(noviKorisnik.getId(), noviKorisnik.getKorisnickoIme(),
                 noviKorisnik.getLozinka(), noviKorisnik.getIme(), noviKorisnik.getPrezime(),noviKorisnik.getDatumRodjenja(),
                 noviKorisnik.getEmail(), noviKorisnik.getTelefon(), noviKorisnik.getUloga());
@@ -67,11 +68,11 @@ public class KorisnikController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> updateUser(@PathVariable Long id,
                       @RequestBody KreiranjeKorisnikaDTO kreiranjeKorisnikaDTO) throws Exception {
-        Korisnik korisnik = new Korisnik(kreiranjeKorisnikaDTO.getKorisnickoIme(), kreiranjeKorisnikaDTO.getLozinka(), kreiranjeKorisnikaDTO.getIme(),
+        Trener korisnik = new Trener(kreiranjeKorisnikaDTO.getKorisnickoIme(), kreiranjeKorisnikaDTO.getLozinka(), kreiranjeKorisnikaDTO.getIme(),
                 kreiranjeKorisnikaDTO.getPrezime(), kreiranjeKorisnikaDTO.getDatumRodjenja(), kreiranjeKorisnikaDTO.getEmail(),
                 kreiranjeKorisnikaDTO.getTelefon(), kreiranjeKorisnikaDTO.getUloga());
         korisnik.setId(id);
-        Korisnik izmenjenKorisnik = korisnikService.update(korisnik);
+        Korisnik izmenjenKorisnik = trenerService.update(korisnik);
         KreiranjeKorisnikaDTO azuriranKorisnik = new KreiranjeKorisnikaDTO(izmenjenKorisnik.getId(),izmenjenKorisnik.getKorisnickoIme(), izmenjenKorisnik.getLozinka(),
                 izmenjenKorisnik.getIme(), izmenjenKorisnik.getPrezime(), izmenjenKorisnik.getDatumRodjenja(), izmenjenKorisnik.getEmail(),
                 izmenjenKorisnik.getTelefon(), izmenjenKorisnik.getUloga());
@@ -80,7 +81,7 @@ public class KorisnikController {
     }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        this.korisnikService.delete(id);
+        this.trenerService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

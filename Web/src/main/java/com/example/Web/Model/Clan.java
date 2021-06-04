@@ -10,7 +10,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @Entity
 public class Clan extends Korisnik {
 
@@ -34,5 +33,17 @@ public class Clan extends Korisnik {
     private Set<OcenaTreninga> ocenaTreninga = new HashSet<>();
 
 
+    public Clan(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja,
+                String email, String telefon, Uloga uloga) {
+        super(korisnickoIme, lozinka, ime, prezime, datumRodjenja, email, telefon, uloga);
+    }
 
+    public Clan(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja, String email,
+                String telefon, Uloga uloga, Set<Termin> odradjeniTreninzi, Set<Termin> prijavljeniTreninzi,
+                Set<OcenaTreninga> ocenaTreninga) {
+        super(korisnickoIme, lozinka, ime, prezime, datumRodjenja, email, telefon, uloga);
+        this.odradjeniTreninzi = odradjeniTreninzi;
+        this.prijavljeniTreninzi = prijavljeniTreninzi;
+        this.ocenaTreninga = ocenaTreninga;
+    }
 }
