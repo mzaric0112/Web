@@ -31,4 +31,6 @@ public class Sala implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
 
+    public Sala() {}
+
    }

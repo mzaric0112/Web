@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,13 +31,14 @@ public class FitnesCentar implements Serializable {
     private String brojCentrale;
     @Column
     private String email;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Trener> treneri = new HashSet<Trener>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Sala> sale = new HashSet<Sala>();
-
+    @JsonIgnore
     //termin treba biti ne odrzavanje treninga
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
    private Set<Termin> rasporedOdrzavanjaTreninga = new HashSet<>();

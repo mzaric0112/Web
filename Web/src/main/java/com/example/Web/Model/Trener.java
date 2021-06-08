@@ -2,6 +2,8 @@ package com.example.Web.Model;
 
 import javax.persistence.*;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +16,7 @@ public class Trener extends Korisnik {
 
 
     @OneToMany(mappedBy = "trener", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<Trening> listaTreninga = new HashSet<Trening>();
 
     @Column
@@ -21,6 +24,9 @@ public class Trener extends Korisnik {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
+
+    public Trener() {
+    }
 
     public Trener(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja,
                   String email, String telefon, Uloga uloga) {

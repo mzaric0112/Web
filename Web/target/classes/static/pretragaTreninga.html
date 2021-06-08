@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pretraga treninga</title>
+</head>
+<body>
+<div class="container">
+    <div class ="jumbotron">
+        <form id="traziTrening">
+
+            <div class="form-group">
+                <label for="naziv">Naziv:</label>
+                <input id="naziv" type="text" class="form-control inputlg" />
+            </div>
+            <div class="form-group">
+                <label for="trajanje">Trajanje:</label>
+                <input id="trajanje" type="text" class="form-control inputlg" />
+            </div>
+            <div class="form-group">
+
+                <label for="sortiranje">Sortiraj po:</label>
+                <select style="font-size:20px;"class="form-control" id="sortiranje">
+                    <option value="1">Nazivu</option>
+                    <option value="2">Trajanju</option>
+                </select>
+            </div>
+            <button id="formTraziTrening"
+                    class="btn btn-primary btn-lg btn-block"
+                    type="submit" value="Trazi">Trazi</button>
+        </form>
+    </div>
+</div>
+
+
+
+<div id ="zaGledaoce" class="container">
+    <div class ="jumbotron">
+        <form id="prijaviSeZaTermin">
+            <div class="form-group">
+                <label for="selekcijaTermina">Termini:</label>
+                <select class="form-control" id="selekcijaTermina">
+                </select>
+            </div>
+            <button id="formPrijaviSeZaTrening"
+                    class="btn btn-primary btn-lg btn-block"
+                    type="submit" value="rezervisi">Rezervisi</button>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

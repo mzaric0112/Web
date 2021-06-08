@@ -33,4 +33,15 @@ public class KreiranjeKorisnikaDTO {
         this.telefon = telefon;
         this.uloga = uloga;
     }
+    public KreiranjeKorisnikaDTO(Long id, String korisnickoIme, String lozinka, String ime,
+                                 String prezime, Date datumRodjenja, String email, String telefon) {
+        this.id = id;
+        this.korisnickoIme = korisnickoIme;
+        this.lozinka = lozinka;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.datumRodjenja = datumRodjenja;
+        this.email = email;
+        this.telefon = telefon;
+    }
 }

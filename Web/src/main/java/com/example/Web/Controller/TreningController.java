@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/trainings")
+@RequestMapping(value = "/api/treninzi")
 public class TreningController {
 
      private final TreningService treningService;
@@ -40,7 +40,7 @@ public class TreningController {
 
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningDTO>> getTraining() {
+    public ResponseEntity<List<TreningDTO>> getTreninzi() {
         List<Trening> treninzi = this.treningService.findAll();
 
         List<TreningDTO> trazeniTreninzi = new ArrayList<TreningDTO>();

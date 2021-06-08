@@ -9,7 +9,7 @@ $(document).ready(function(){
 	    var prezime = $("#prezime").val();
 	    var telefon = $("#telefon").val();
 	    var email = $("#email").val();
-    	var datumRodjenja = $("#datumRodjenja").val()
+    	var datumRodjenja = $("#datumRodjenja").val();
         //obratiti paznju na nazive
 		var obj = JSON.stringify({
         "korisnickoIme" : korisnickoIme,
@@ -18,7 +18,8 @@ $(document).ready(function(){
         "prezime" : prezime,
         "telefon" : telefon,
         "email" : email,
-        "datumRodjenja" : datumRodjenja
+        "datumRodjenja" : datumRodjenja,
+        "uloga" : "CLAN"
     	});
 
 // alert(newKorisnik);
@@ -30,7 +31,7 @@ $(document).ready(function(){
         data: obj,
         success: function () {
             alert(obj);
-            window.location.href = "home.html";
+            window.location.href = "index.html";
         	},
         error: function (data) {
             alert("Da li se poruka prenela?");
