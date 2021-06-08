@@ -21,7 +21,7 @@ public class Sala implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private double kapacitet;
+    private int kapacitet;
     @Column
     private String oznaka;
 
