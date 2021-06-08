@@ -1,22 +1,25 @@
 $(document).ready(function(){
-     $("#traziProjekciju").submit(function(event) {
+     $("#traziTrening").submit(function(event) {
         event.preventDefault();
 
         var naziv = $("#naziv").val();
         var trajanje = $("#trajanje").val();
-        var tipTreninga = $("#tipTreninga").val();
+
+        var datumPocetka = $("#datumPocetka").val();
+        var cena = $("#cena").val();
 
         var tipSortiranja = $("#sortiranje").val();
         var obj = JSON.stringify({
                 "naziv" : naziv,
                 "trajanje" : trajanje,
-                "tipTreninga" : tipTreninga,
+                "cena" : cena,
+                "datumPocetka" : datumPocetka,
                 "tipSortiranja" : tipSortiranja
-
+        )};
      });
      $.ajax({
                  type: "POST",
-                 url: "http://localhost:8080/api/terminkaListaProjekcija/pretraga",
+                 url: "http://localhost:8181/api/termini/pretraga",
                  dataType: "json",
                  contentType: "application/json",
                  data: obj,
@@ -25,26 +28,23 @@ $(document).ready(function(){
                          for (i = 0; i < data.length; i++) {
                          var row = "<tr>";
                          row += "<td>" + data[i]['naziv'] + "</td>";
-                         row += "<td>" + (data[i]['vreme'].split("T"))[0] + "</td>";
                          row += "<td>" + data[i]['cena'] + "</td>";
-                         row += "<td>" + data[i]['srednjaOcena'] + "</td>";
-                         row += "<td>" + data[i]['zanr'] + "</td>";
                          row += "<td>" + data[i]['trajanje'] + "</td>";
-                         row += "<td>" + data[i]['bioskopNaziv']; + "</td>";
-                         row += "<td>" + data[i]['salaOznaka']; + "</td>";
+                         row += "<td>" + (data[i]['datumPocetka'] + "</td>";
+                         row += "<td>" + (data[i]['datumKraja'] + "</td>";
+                         row += "<td>" + data[i]['preostalaMesta'] + "</td>";
+                         row += "<td>" + data[i]['imeTrenera'] + "</td>";
+                         row += "<td>" + data[i]['tipTreninga'] + "</td>";
+                         row += "<td>" + data[i]['prosecnaOcena'] + "</td>";
+                         row += "<td>" + data[i]['nazivFitnesCentra'] + "</td>";
+                         row += "<td>" + data[i]['nazivSale'] + "</td>";
+
                          row += "</tr>";
 
 
-                         $('#projekcije').append(row);
+                         $('#terminiTreninga').append(row);
 
-                         var opcija = "<option  value = " + data[i]['idtlp'] + ">";
-                         opcija += data[i]['naziv'] + " - ";
-                         opcija += (data[i]['vreme'].split("T"))[0] + " - ";
-                         opcija += data[i]['bioskopNaziv'] + " - ";
-                         opcija += data[i]['salaOznaka'] + " - ";
-                         opcija += data[i]['cena'];
-                         opcija += "</option>";
-                         $('#selekcijaProjekcije').append(opcija);
+
                      }
                  },
                  error: function (data) {
@@ -52,8 +52,8 @@ $(document).ready(function(){
                      console.log("ERROR : ", data);
                  }
              });
-         });
+     });
 
 
 
-}
+

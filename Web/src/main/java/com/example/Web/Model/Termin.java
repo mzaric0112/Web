@@ -2,6 +2,8 @@ package com.example.Web.Model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +28,7 @@ public class Termin implements Serializable{
     @Column
     private int brojClanova;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "termin", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OcenaTreninga> ocena = new HashSet<>();
 
@@ -44,6 +47,16 @@ public class Termin implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     private FitnesCentar fitnesCentar;
 
+    public Termin(){}
 
+    public Termin( double cena, Date datumPocetka, Date datumKraja, int brojClanova, Trening trening, Sala sala, FitnesCentar fitnesCentar) {
 
+        this.cena = cena;
+        this.datumPocetka = datumPocetka;
+        this.datumKraja = datumKraja;
+        this.brojClanova = brojClanova;
+        this.trening = trening;
+        this.sala = sala;
+        this.fitnesCentar = fitnesCentar;
+    }
 }

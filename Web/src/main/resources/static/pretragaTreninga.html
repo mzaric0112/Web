@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Pretraga treninga</title>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/pretragaTreninga.js"></script>
 </head>
 <body>
 <div class="container">
@@ -13,13 +16,18 @@
                 <label for="naziv">Naziv:</label>
                 <input id="naziv" type="text" class="form-control inputlg" />
             </div>
+
             <div class="form-group">
-                <label for="tipTreninga">Tip treninga:</label>
-                <input id="tipTreninga" type="text" class="form-control inputlg" />
+                <label for="trajanje">Trajanje do (koliko minuta):</label>
+                <input id="trajanje" type="text" class="form-control inputlg" />
             </div>
             <div class="form-group">
-                <label for="trajanje">Trajanje:</label>
-                <input id="trajanje" type="text" class="form-control inputlg" />
+                <label for="cena">Cena (do koliko):</label>
+                <input id="cena" type="text" class="form-control inputlg" />
+            </div>
+            <div class="form-group">
+                <label for="datumPocetka">Posle datuma:</label>
+                <input  id="datumPocetka" type="date" class="form-control inputlg"/>
             </div>
             <div class="form-group">
 
@@ -27,6 +35,10 @@
                 <select style="font-size:20px;"class="form-control" id="sortiranje">
                     <option value="1">Nazivu</option>
                     <option value="2">Trajanju</option>
+                    <option value="3">Ceni</option>
+
+                    <option value="4">Datumu pocetka</option>
+                    <option value="5">Oceni</option>
                 </select>
             </div>
             <button id="formTraziTrening"
@@ -35,23 +47,31 @@
         </form>
     </div>
 </div>
-
-
-
-<div id ="zaGledaoce" class="container">
-    <div class ="jumbotron">
-        <form id="prijaviSeZaTermin">
-            <div class="form-group">
-                <label for="selekcijaTermina">Termini:</label>
-                <select class="form-control" id="selekcijaTermina">
-                </select>
-            </div>
-            <button id="formPrijaviSeZaTrening"
-                    class="btn btn-primary btn-lg btn-block"
-                    type="submit" value="rezervisi">Rezervisi</button>
-        </form>
+<div>
+    <h1>Termini</h1>
+    <br><br>
+    <div class="container">
+        <table id="terminiTreninga">
+            <tr>
+                <th>Naziv</th>
+                <th>Cena</th>
+                <th>Trajanje</th>
+                <th>Datum pocetka</th>
+                <th>Datum kraja</th>
+                <th>Preostala mesta</th>
+                <th>Ime trenera</th>
+                <th>Tip treninga</th>
+                <th>Prosecna ocena</th>
+                <th>Naziv fitnes centra</th>
+                <th>Naziv sale</th>
+            </tr>
+        </table>
     </div>
 </div>
+
+
+
+
 
 
 </body>
