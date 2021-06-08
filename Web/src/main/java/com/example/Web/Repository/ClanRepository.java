@@ -6,9 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ClanRepository extends JpaRepository<Clan, Long> {
-    /*void deleteById(Long id);
-    List<Clan> findAll();
-    List<Clan> findByByIme(String ime);
-    List<Clan> findByByPrezime(String prezime);
-    List<Clan> findByByImeOrPrezime(String ime, String prezime);*/
+
 }

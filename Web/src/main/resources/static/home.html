@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" xmlns:th="http://www.thymeleaf.org">
+    <meta charset="UTF-8" >
     <title>Home page</title>
 </head>
 <body>
-<h1>Wellcome!</h1>
+<div class="container text">
+    <ul class="nav nav-pills nav-inline pull-right">
+        <!-- na klik imena preci na pregled profila -->
+        <li id = "dugmeKorisnik"><a id = "placeHolderUsername" href="#">Ne treba da se pojavi</a></li>
+        <li class="active"><a href="#">Pocetna stranica</a></li>
+        <li id = "dugmeRegistracijaClana"><a href="registracijaKorisnika.html">Registracija clana</a></li>
+
+        <li id = "dugmeRegistracijaTrenera"><a href="registracijaTrenera.html">Registracija trenera </a></li>
+        <li id = "dugmeLogin"><a href="login.html">Login</a></li>
+        <li id = "dugmeLogout"><a href="#">Logout</a></li>
+    </ul>
+</div>
+
+
+
+
 </body>
 </html>

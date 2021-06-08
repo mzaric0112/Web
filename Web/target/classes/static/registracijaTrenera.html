@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Registracija novog trenera</title>
@@ -35,7 +35,7 @@
         <div class="col-sm-12">
             <div class="modal-content">
                 <h2 class="text-center">Popunite formu za registraciju</h2>
-                <form id="addKorisnikForm" >
+                <form id="addTrenerForm" >
                     <div class="form-group1">
                         <h5 for="korisnickoIme">Korisničko ime:</h5>
                         <input id="korisnickoIme" name="korisnickoIme" type="text" class="registar" placeholder="Username">
@@ -54,11 +54,11 @@
                     </div>
                     <div class="form-group1">
                         <h5 for="kontaktTelefon">Kontakt:</h5>
-                        <input id="kontaktTelefon" name="kontaktTelefon"type="text" class="registar" placeholder="Kontakt">
+                        <input id="telefon" name="kontaktTelefon"type="text" class="registar" placeholder="Kontakt">
                     </div>
                     <div class="form-group1">
                         <h5 for="eadresa">E-mail:</h5>
-                        <input id="eadresa" name="eadresa"type="text" class="registar" placeholder="E-mail">
+                        <input id="email" name="eadresa"type="text" class="registar" placeholder="E-mail">
                     </div>
 
                     <div class="form-group1">
@@ -66,7 +66,7 @@
                         <input id="datumRodjenja"  name="datumRodjenja" type="date" value="2020-05-21" class="registar datum" placeholder="Datum rodjenja">
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-success">Registruj se</button>
+                        <button id="formTrenerBtn" value="Register" type="submit" class="btn btn-success">Registruj se</button>
                     </div>
                 </form>
             </div>
