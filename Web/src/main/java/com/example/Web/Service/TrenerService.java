@@ -10,5 +10,6 @@ public interface TrenerService {
     Trener create(Trener korisnik) throws Exception;
     Trener update(Trener korisnik) throws Exception;
     void delete(Long id);
+    Trener getByKorisnickoImeAndLozinka(String korisnickoIme, String lozinka);
 }
 

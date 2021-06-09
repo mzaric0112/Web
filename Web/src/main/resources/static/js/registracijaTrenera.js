@@ -10,6 +10,7 @@ $(document).ready(function(){
 	    var telefon = $("#telefon").val();
 	    var email = $("#email").val();
     	var datumRodjenja = $("#datumRodjenja").val();
+
         //obratiti paznju na nazive
 		var obj = JSON.stringify({
         "korisnickoIme" : korisnickoIme,
@@ -18,13 +19,14 @@ $(document).ready(function(){
         "prezime" : prezime,
         "telefon" : telefon,
         "email" : email,
-        "datumRodjenja" : datumRodjenja
+        "datumRodjenja" : datumRodjenja,
+        "uloga" : 1
     	});
 
 // alert(newKorisnik);
      $.ajax({
         type: "POST",
-        url: "http://localhost:8181/api/trener",
+        url: "http://localhost:8181/api/korisnik/registracija",
         dataType: "json",
         contentType: "application/json",
         data: obj,

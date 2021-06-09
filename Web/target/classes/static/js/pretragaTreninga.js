@@ -25,7 +25,7 @@ $(document).ready(function(){
                  data: obj,
                  success: function (data) {
                      console.log("SUCCESS : ", data);
-                     $("#ajaxViewAttendanceSheet").html('');
+                     
                          for (i = 0; i < data.length; i++) {
                          var row = "<tr>";
                          row += "<td>" + data[i]['naziv'] + "</td>";

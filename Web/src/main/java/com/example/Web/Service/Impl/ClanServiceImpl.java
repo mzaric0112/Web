@@ -21,6 +21,12 @@ public class ClanServiceImpl implements ClanService {
         Clan korisnik = this.clanRepository.getOne(id);
         return korisnik;
     }
+    @Override
+
+    public Clan getByKorisnickoImeAndLozinka(String korisnickoIme, String lozinka) {
+        Clan korisnik = this.clanRepository.findByKorisnickoImeAndLozinka(korisnickoIme,lozinka);
+        return korisnik;
+    }
 
     @Override
     public List<Clan> findAll() {

@@ -5,9 +5,12 @@ import com.example.Web.Repository.TerminRepository;
 import com.example.Web.Service.TerminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Component
+//@Component
+@Service
+
 public class TerminServiceImpl implements TerminService {
     private final TerminRepository terminRepository;
 

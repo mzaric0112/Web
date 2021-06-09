@@ -5,10 +5,14 @@ import com.example.Web.Repository.OcenaTreningaRepository;
 import com.example.Web.Service.OcenaTreningaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-@Component
+
+//@Component
+@Service
+
 public class OcenaTreningaServiceImpl implements OcenaTreningaService {
     private final OcenaTreningaRepository ocenaTreningaRepository;
     @Autowired

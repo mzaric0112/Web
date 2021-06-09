@@ -1,10 +1,11 @@
 package com.example.Web.Controller;
 
+import com.example.Web.Model.Administrator;
 import com.example.Web.Model.Clan;
 import com.example.Web.Model.Korisnik;
 import com.example.Web.Model.Trener;
-import com.example.Web.Model.dto.KorisnikDTO;
-import com.example.Web.Model.dto.KreiranjeKorisnikaDTO;
+import com.example.Web.Model.dto.*;
+import com.example.Web.Service.AdministratorService;
 import com.example.Web.Service.ClanService;
 import com.example.Web.Service.TrenerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,58 @@ import java.util.List;
 public class KorisnikController {
     private final ClanService clanService;
     private final TrenerService trenerService;
+    private final AdministratorService administratorService;
 
     @Autowired
-    public KorisnikController(ClanService clanService, TrenerService trenerService) {this.clanService = clanService;
-    this.trenerService = trenerService;}
+    public KorisnikController(ClanService clanService, TrenerService trenerService, AdministratorService administratorService) {this.clanService = clanService;
+    this.trenerService = trenerService;
+    this.administratorService = administratorService; }
+
+
+    @PostMapping(
+			value =("/login"),
+		    consumes = MediaType.APPLICATION_JSON_VALUE,
+		    produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<LogovaniKorisnikDTO> KorisnikLogin(@RequestBody KorisnikLoginDTO korisnikLoginDTO) throws Exception{
+        Administrator admin = this.administratorService.getByKorisnickoImeAndLozinka(korisnikLoginDTO.getKorisnickoIme(), korisnikLoginDTO.getLozinka());
+        Clan clan = this.clanService.getByKorisnickoImeAndLozinka(korisnikLoginDTO.getKorisnickoIme(), korisnikLoginDTO.getLozinka());
+        Trener trener = this.trenerService.getByKorisnickoImeAndLozinka(korisnikLoginDTO.getKorisnickoIme(), korisnikLoginDTO.getLozinka());
+        LogovaniKorisnikDTO korisnikDTO = new LogovaniKorisnikDTO();
+        if(admin != null) {
+            if(admin.isAktivan() == false && admin.isRegistrovan()== false) {
+
+                throw new Exception("Nalog nije aktiviran");
+            }
+            korisnikDTO = new LogovaniKorisnikDTO(admin.getId(), admin.getKorisnickoIme(), admin.getIme(), admin.getPrezime(),
+                    "ne prenosim sifru", admin.getTelefon(), admin.getEmail(), admin.getDatumRodjenja(), admin.isAktivan(), admin.getUloga());
+            return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+        }
+        else if(clan != null) {
+            if(clan.isAktivan() == false && clan.isRegistrovan() == false) {
+                throw new Exception("Nalog nije aktiviran");
+            }
+            korisnikDTO = new LogovaniKorisnikDTO(clan.getId(), clan.getKorisnickoIme(), clan.getIme(), clan.getPrezime(),
+                    "ne prenosim sifru", clan.getTelefon(), clan.getEmail(), clan.getDatumRodjenja(), clan.isAktivan(), clan.getUloga());
+            return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+        }
+        else if(trener != null) {
+            if(trener.isAktivan() == false && trener.isRegistrovan() == false) {
+                throw new Exception("Nalog nije aktiviran");
+            }
+            korisnikDTO = new LogovaniKorisnikDTO(trener.getId(), trener.getKorisnickoIme(), trener.getIme(), trener.getPrezime(),
+                    "ne prenosim sifru", trener.getTelefon(), trener.getEmail(), trener.getDatumRodjenja(), trener.isAktivan(), trener.getUloga());
+            return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+        }
+        else
+            throw new Exception("Kredincijali nisu tacni");
+
+
+
+
+
+	}
+
+
 
     @GetMapping(value = "/clanovi/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KorisnikDTO> getClan(@PathVariable("id") Long id)
@@ -54,10 +103,12 @@ public class KorisnikController {
         }
         return new ResponseEntity<>(trazeniKorisnici, HttpStatus.OK);
     }
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value="/clanovi")
-    public ResponseEntity<KreiranjeKorisnikaDTO> createClan(@RequestBody KreiranjeKorisnikaDTO kDTO) throws Exception {
-        Clan korisnik = new Clan(kDTO.getKorisnickoIme(), kDTO.getLozinka(), kDTO.getIme(), kDTO.getPrezime(),
-                kDTO.getDatumRodjenja(),kDTO.getEmail(), kDTO.getTelefon(),  kDTO.getUloga());
+    @PostMapping(value="/registrujClana" ,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value="/clanovi")
+    public ResponseEntity<KreiranjeKorisnikaDTO> createClan(@RequestBody RegistracijaDTO DTO) throws Exception {
+        Clan korisnik = new Clan(DTO.getKorisnickoIme(), DTO.getLozinka(), DTO.getIme(), DTO.getPrezime(),
+                DTO.getDatumRodjenja(), DTO.getEmail(), DTO.getTelefon(),  DTO.getUloga());
+        korisnik.setRegistrovan(false);
+        korisnik.setAktivan(true);
         Clan noviKorisnik = this.clanService.create(korisnik);
         KreiranjeKorisnikaDTO korisnikDTO = new KreiranjeKorisnikaDTO(noviKorisnik.getId(), noviKorisnik.getKorisnickoIme(),
                 noviKorisnik.getLozinka(), noviKorisnik.getIme(), noviKorisnik.getPrezime(),noviKorisnik.getDatumRodjenja(),
@@ -117,10 +168,12 @@ public class KorisnikController {
         return new ResponseEntity<>(trazeniKorisnici, HttpStatus.OK);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value="/treneri")
-    public ResponseEntity<KreiranjeKorisnikaDTO> createTrener(@RequestBody KreiranjeKorisnikaDTO kDTO) throws Exception {
-        Trener korisnik = new Trener(kDTO.getKorisnickoIme(), kDTO.getLozinka(), kDTO.getIme(), kDTO.getPrezime(),
-                kDTO.getDatumRodjenja(),kDTO.getEmail(), kDTO.getTelefon(),  kDTO.getUloga());
+    @PostMapping(value="/registrujTrenera",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value="/treneri")
+    public ResponseEntity<KreiranjeKorisnikaDTO> createTrener(@RequestBody RegistracijaDTO DTO) throws Exception {
+        Trener korisnik = new Trener(DTO.getKorisnickoIme(), DTO.getLozinka(), DTO.getIme(), DTO.getPrezime(),
+                DTO.getDatumRodjenja(),DTO.getEmail(), DTO.getTelefon(),  DTO.getUloga());
+        korisnik.setRegistrovan(false);
+        korisnik.setAktivan(true);
         Trener noviKorisnik = this.trenerService.create(korisnik);
         KreiranjeKorisnikaDTO korisnikDTO = new KreiranjeKorisnikaDTO(noviKorisnik.getId(), noviKorisnik.getKorisnickoIme(),
                 noviKorisnik.getLozinka(), noviKorisnik.getIme(), noviKorisnik.getPrezime(),noviKorisnik.getDatumRodjenja(),

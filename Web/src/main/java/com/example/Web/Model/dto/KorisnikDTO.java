@@ -9,6 +9,7 @@ import java.util.Date;
 
 @Getter
 @Setter
+
 public class KorisnikDTO {
 
     private Long id;

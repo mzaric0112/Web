@@ -1,5 +1,6 @@
 package com.example.Web.Service.Impl;
 
+import com.example.Web.Model.Administrator;
 import com.example.Web.Model.Trener;
 import com.example.Web.Repository.TrenerRepository;
 import com.example.Web.Service.TrenerService;
@@ -19,6 +20,11 @@ public class TrenerServiceImpl implements TrenerService {
     public Trener findOne(Long id){
         Trener korisnik = this.trenerRepository.getOne(id);
         return korisnik;
+    }
+    @Override
+    public Trener getByKorisnickoImeAndLozinka(String korisnickoIme, String lozinka){
+        Trener trener = this.trenerRepository.findByKorisnickoImeAndLozinka(korisnickoIme,lozinka);
+        return  trener;
     }
 
     @Override
