@@ -26,6 +26,22 @@ public class KorisnikController {
     this.trenerService = trenerService;
     this.administratorService = administratorService; }
 
+    @GetMapping(value="/zahteviZaRegistracijuClana", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RegistracijaDTO>> getRegistracijaClana() {
+        List<Clan> clanovi = this.clanService.findAll();
+
+        List<RegistracijaDTO> trazeniTreneri = new ArrayList<RegistracijaDTO>();
+
+        for(Clan t : clanovi) {
+            if(t.isRegistrovan() == false) {
+                RegistracijaDTO trener = new RegistracijaDTO( t.getKorisnickoIme(), t.getIme(), t.getPrezime(), t.getLozinka(),
+                        t.getTelefon(), t.getEmail(), t.getDatumRodjenja(), t.getUloga());
+                trazeniTreneri.add(trener);
+            }
+
+        }
+        return new ResponseEntity<>(trazeniTreneri, HttpStatus.OK);
+    }
 
     @GetMapping(value="/zahteviZaRegistracijuTrenera", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RegistracijaDTO>> getRegistracijaTrenera() {
