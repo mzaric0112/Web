@@ -69,29 +69,41 @@ public class KorisnikController {
         Trener trener = this.trenerService.getByKorisnickoImeAndLozinka(korisnikLoginDTO.getKorisnickoIme(), korisnikLoginDTO.getLozinka());
         LogovaniKorisnikDTO korisnikDTO = new LogovaniKorisnikDTO();
         if(admin != null) {
-            if(admin.isAktivan() == false && admin.isRegistrovan()== false) {
+            if(admin.isAktivan() == false || admin.isRegistrovan()== false) {
 
                 throw new Exception("Nalog nije aktiviran");
             }
-            korisnikDTO = new LogovaniKorisnikDTO(admin.getId(), admin.getKorisnickoIme(), admin.getIme(), admin.getPrezime(),
-                    "ne prenosim sifru", admin.getTelefon(), admin.getEmail(), admin.getDatumRodjenja(), admin.isAktivan(), admin.getUloga());
-            return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+            else {
+                korisnikDTO = new LogovaniKorisnikDTO(admin.getId(), admin.getKorisnickoIme(), admin.getIme(), admin.getPrezime(),
+                        "ne prenosim sifru", admin.getTelefon(), admin.getEmail(), admin.getDatumRodjenja(), admin.isAktivan(), admin.getUloga());
+                return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+            }
+
+
         }
         else if(clan != null) {
-            if(clan.isAktivan() == false && clan.isRegistrovan() == false) {
+            if(clan.isAktivan() == false || clan.isRegistrovan() == false) {
                 throw new Exception("Nalog nije aktiviran");
             }
-            korisnikDTO = new LogovaniKorisnikDTO(clan.getId(), clan.getKorisnickoIme(), clan.getIme(), clan.getPrezime(),
-                    "ne prenosim sifru", clan.getTelefon(), clan.getEmail(), clan.getDatumRodjenja(), clan.isAktivan(), clan.getUloga());
-            return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+            else{
+                korisnikDTO = new LogovaniKorisnikDTO(clan.getId(), clan.getKorisnickoIme(), clan.getIme(), clan.getPrezime(),
+                        "ne prenosim sifru", clan.getTelefon(), clan.getEmail(), clan.getDatumRodjenja(), clan.isAktivan(), clan.getUloga());
+                return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+
+            }
+
+
         }
         else if(trener != null) {
-            if(trener.isAktivan() == false && trener.isRegistrovan() == false) {
+            if(trener.isAktivan() == false || trener.isRegistrovan() == false) {
                 throw new Exception("Nalog nije aktiviran");
             }
-            korisnikDTO = new LogovaniKorisnikDTO(trener.getId(), trener.getKorisnickoIme(), trener.getIme(), trener.getPrezime(),
-                    "ne prenosim sifru", trener.getTelefon(), trener.getEmail(), trener.getDatumRodjenja(), trener.isAktivan(), trener.getUloga());
-            return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+            else{
+                korisnikDTO = new LogovaniKorisnikDTO(trener.getId(), trener.getKorisnickoIme(), trener.getIme(), trener.getPrezime(),
+                        "ne prenosim sifru", trener.getTelefon(), trener.getEmail(), trener.getDatumRodjenja(), trener.isAktivan(), trener.getUloga());
+                return new ResponseEntity<>(korisnikDTO,HttpStatus.OK);
+            }
+
         }
         else
             throw new Exception("Kredincijali nisu tacni");
@@ -135,9 +147,8 @@ public class KorisnikController {
     @PostMapping(value="/registrujClana" ,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> createClan(@RequestBody RegistracijaDTO DTO) throws Exception {
         Clan korisnik = new Clan(DTO.getKorisnickoIme(), DTO.getLozinka(), DTO.getIme(), DTO.getPrezime(),
-                DTO.getDatumRodjenja(), DTO.getEmail(), DTO.getTelefon(),  DTO.getUloga());
-        korisnik.setRegistrovan(false);
-        korisnik.setAktivan(true);
+                DTO.getTelefon(), DTO.getEmail(), DTO.getDatumRodjenja(), true, DTO.getUloga(), false);
+
         Clan noviKorisnik = this.clanService.create(korisnik);
         KreiranjeKorisnikaDTO korisnikDTO = new KreiranjeKorisnikaDTO(noviKorisnik.getId(), noviKorisnik.getKorisnickoIme(),
                 noviKorisnik.getLozinka(), noviKorisnik.getIme(), noviKorisnik.getPrezime(),noviKorisnik.getDatumRodjenja(),
@@ -200,9 +211,8 @@ public class KorisnikController {
     @PostMapping(value="/registrujTrenera",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> createTrener(@RequestBody RegistracijaDTO DTO) throws Exception {
         Trener korisnik = new Trener(DTO.getKorisnickoIme(), DTO.getLozinka(), DTO.getIme(), DTO.getPrezime(),
-                DTO.getDatumRodjenja(),DTO.getEmail(), DTO.getTelefon(),  DTO.getUloga());
-        korisnik.setRegistrovan(false);
-        korisnik.setAktivan(true);
+                DTO.getTelefon(), DTO.getEmail(), DTO.getDatumRodjenja(), true, DTO.getUloga(), false);
+
         Trener noviKorisnik = this.trenerService.create(korisnik);
         KreiranjeKorisnikaDTO korisnikDTO = new KreiranjeKorisnikaDTO(noviKorisnik.getId(), noviKorisnik.getKorisnickoIme(),
                 noviKorisnik.getLozinka(), noviKorisnik.getIme(), noviKorisnik.getPrezime(),noviKorisnik.getDatumRodjenja(),

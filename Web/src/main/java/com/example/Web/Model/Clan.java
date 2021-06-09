@@ -39,6 +39,11 @@ public class Clan extends Korisnik {
         super(korisnickoIme, lozinka, ime, prezime, datumRodjenja, email, telefon, uloga);
     }
 
+    public Clan(String korisnickoIme, String ime, String prezime, String lozinka, String telefon, String email, Date datumRodjenja,
+                boolean aktivan, Uloga uloga, boolean registrovan) {
+        super(korisnickoIme, ime, prezime, lozinka, telefon, email, datumRodjenja, aktivan, uloga, registrovan);
+    }
+
     public Clan(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja, String email,
                 String telefon, Uloga uloga, Set<Termin> odradjeniTreninzi, Set<Termin> prijavljeniTreninzi,
                 Set<OcenaTreninga> ocenaTreninga) {

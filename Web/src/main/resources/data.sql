@@ -28,6 +28,9 @@ INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-06-12 12:45:00', '2021-06-12 11:15:00', 1, 4, 3);
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-06-13 12:15:00', '2021-06-13 11:15:00', 1, 1, 7);
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-06-12 14:15:00', '2021-06-12 13:15:00', 1, 3, 8);
+INSERT INTO CLAN (korisnickoime, lozinka, ime, prezime,  telefon, email, datumrodjenja, aktivan, uloga, registrovan) VALUES ('nemanjama', 'ftn', 'Nemanja', 'Markovic', '0614863332', 'nemanjama@gmail.com', '1997-03-01', 'true', 2, 'false');
+INSERT INTO CLAN (korisnickoime, lozinka, ime, prezime,  telefon, email, datumrodjenja, aktivan, uloga, registrovan) VALUES ('anasa', 'ftn', 'Ana', 'Saran', '0619315232', 'anasa@gmail.com', '1997-03-01', 'true', 2, 'false');
+INSERT INTO TRENER (korisnickoime, lozinka, ime, prezime,  telefon, email, datumrodjenja, aktivan, uloga, prosecna_ocena, fitnes_centar_id, registrovan) VALUES ('novakdjo', 'ftn', 'Novak', 'Djokovic', '0664857695', 'novakdjo@gmail.com', '1989-11-04', 'true', 1, 0.00,1, 'false');
 
 
 

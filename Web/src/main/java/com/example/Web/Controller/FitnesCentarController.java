@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/fitnessCenter")
+@RequestMapping(value = "/api/fitnesCentar")
 public class FitnesCentarController {
     private final FitnesCentarService fitnesCentarService;
 
