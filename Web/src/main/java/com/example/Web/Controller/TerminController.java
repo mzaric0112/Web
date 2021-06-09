@@ -93,12 +93,12 @@ public class TerminController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(
+    @PostMapping(
 			value = ("/pretraga"),
 		    consumes = MediaType.APPLICATION_JSON_VALUE,
     		produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<List<FiltriraniTreninziDTO>> traziTermine(@RequestBody ParametriPretrageDTO info){
+	public ResponseEntity<List<FiltriraniTreninziDTO>> traziTermine(@RequestBody ParametriPretrageDTO info) throws Exception{
         List<FiltriraniTreninziDTO> ret = new ArrayList<>();
         for(Termin t: this.terminService.findAll()) {
             FiltriraniTreninziDTO filtrirani = new FiltriraniTreninziDTO();
@@ -157,7 +157,7 @@ public class TerminController {
 		for(FiltriraniTreninziDTO pp : ret)
 			if(pp.isOdgovara())
 				zasortiranje.add(pp);
-
+/*
 		switch (info.getTipSortiranja()) {
 		case 1:
 			for(int i = 0; i < zasortiranje.size(); i++) {
@@ -227,7 +227,7 @@ public class TerminController {
                 }
             }
             break;
-		}
+		}*/
 
 
 		return new ResponseEntity<>(zasortiranje, HttpStatus.OK);

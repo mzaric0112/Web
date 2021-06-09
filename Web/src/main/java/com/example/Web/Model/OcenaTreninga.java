@@ -28,5 +28,7 @@ public class OcenaTreninga implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Clan clan;
 
+    public OcenaTreninga(){}
+
 
 }

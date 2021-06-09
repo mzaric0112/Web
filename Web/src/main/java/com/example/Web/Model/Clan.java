@@ -32,6 +32,7 @@ public class Clan extends Korisnik {
     @OneToMany(mappedBy = "clan", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OcenaTreninga> ocenaTreninga = new HashSet<>();
 
+    public Clan(){}
 
     public Clan(String korisnickoIme, String lozinka, String ime, String prezime, Date datumRodjenja,
                 String email, String telefon, Uloga uloga) {

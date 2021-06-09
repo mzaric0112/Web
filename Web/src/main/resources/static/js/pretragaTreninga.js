@@ -15,8 +15,8 @@ $(document).ready(function(){
                 "cena" : cena,
                 "datumPocetka" : datumPocetka,
                 "tipSortiranja" : tipSortiranja
-        )};
-     });
+        });
+
      $.ajax({
                  type: "POST",
                  url: "http://localhost:8181/api/termini/pretraga",
@@ -25,13 +25,14 @@ $(document).ready(function(){
                  data: obj,
                  success: function (data) {
                      console.log("SUCCESS : ", data);
+                     
                          for (i = 0; i < data.length; i++) {
                          var row = "<tr>";
                          row += "<td>" + data[i]['naziv'] + "</td>";
                          row += "<td>" + data[i]['cena'] + "</td>";
                          row += "<td>" + data[i]['trajanje'] + "</td>";
-                         row += "<td>" + (data[i]['datumPocetka'] + "</td>";
-                         row += "<td>" + (data[i]['datumKraja'] + "</td>";
+                         row += "<td>" + (data[i]['datumPocetka'].split("T"))[0] + "</td>";
+                         row += "<td>" + (data[i]['datumKraja'].split("T"))[0] + "</td>";
                          row += "<td>" + data[i]['preostalaMesta'] + "</td>";
                          row += "<td>" + data[i]['imeTrenera'] + "</td>";
                          row += "<td>" + data[i]['tipTreninga'] + "</td>";
@@ -54,6 +55,6 @@ $(document).ready(function(){
              });
      });
 
-
+});
 
 
