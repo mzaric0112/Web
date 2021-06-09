@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,6 +94,46 @@ public class TerminController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping(value = "/naziv/{naziv}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FiltriraniTreninziDTO>> traziPoNazivu(@PathVariable(name = "naziv") String naziv) throws Exception {
+        List<Termin> termini = terminService.findAll();
+        List<FiltriraniTreninziDTO> ret = new ArrayList<>();
+        for (Termin t : termini) {
+            if (t.getTrening().getNaziv().contains(naziv)) {
+                FiltriraniTreninziDTO filtrirani = new FiltriraniTreninziDTO();
+                filtrirani.setIdt(t.getId());
+                filtrirani.setNaziv(t.getTrening().getNaziv());
+                filtrirani.setCena(t.getCena());
+                filtrirani.setTrajanje(t.getTrening().getTrajanje());
+                filtrirani.setDatumPocetka(t.getDatumPocetka());
+                filtrirani.setDatumKraja(t.getDatumKraja());
+                filtrirani.setImeTrenera(t.getTrening().getTrener().getIme());
+                filtrirani.setTipTreninga(t.getTrening().getTipTreninga());
+                filtrirani.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
+                filtrirani.setNazivSale(t.getSala().getOznaka());
+                float ocenaSrednja = 0;
+                int delioc = 0;
+                for (OcenaTreninga ocena : this.ocenaTreningaService.getByTreningId(t.getTrening().getId())) {
+                    if (ocena.getOcena() > 0) {
+                        ocenaSrednja += ocena.getOcena();
+                        delioc++;
+                    }
+                }
+                if (delioc == 0) {
+                    ocenaSrednja = 0;
+                } else {
+                    ocenaSrednja /= delioc;
+                }
+                filtrirani.setProsecnaOcena(ocenaSrednja);
+                filtrirani.setPreostalaMesta(t.getSala().getKapacitet() - t.getBrojClanova());
+                filtrirani.setOdgovara(true);
+
+
+                ret.add(filtrirani);
+            }
+        }
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+    }
     @PostMapping(
 			value = ("/pretraga"),
 		    consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -133,21 +174,22 @@ public class TerminController {
 
           ret.add(filtrirani);
         }
-
+        for(FiltriraniTreninziDTO trening : ret) {
+            System.out.println(trening + "\n");
+        }
 
 		if(info.getNaziv() != null)
 			for(FiltriraniTreninziDTO pp : ret)
 				if(!pp.getNaziv().contains(info.getNaziv()))
 					pp.setOdgovara(false);
-
+        if(info.getCena() != 0)
 		for(FiltriraniTreninziDTO pp : ret)
 			if(pp.getCena() > info.getCena())
 				pp.setOdgovara(false);
-
+        if(info.getTrajanje() != 0)
         for(FiltriraniTreninziDTO pp : ret)
             if(pp.getTrajanje() > info.getTrajanje())
                 pp.setOdgovara(false);
-
 		if(info.getDatumPocetka() != null)
 			for(FiltriraniTreninziDTO pp : ret)
 				if(info.getDatumPocetka().after(pp.getDatumPocetka()))
@@ -157,6 +199,9 @@ public class TerminController {
 		for(FiltriraniTreninziDTO pp : ret)
 			if(pp.isOdgovara())
 				zasortiranje.add(pp);
+        for(FiltriraniTreninziDTO trening : zasortiranje) {
+            System.out.println(trening + "\n");
+        }
 /*
 		switch (info.getTipSortiranja()) {
 		case 1:

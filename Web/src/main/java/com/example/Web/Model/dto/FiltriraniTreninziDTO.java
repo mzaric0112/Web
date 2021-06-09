@@ -43,4 +43,22 @@ public class FiltriraniTreninziDTO {
 
     }
 
+    @Override
+    public String toString() {
+        return "FiltriraniTreninziDTO{" +
+                "idt=" + idt +
+                ", naziv='" + naziv + '\'' +
+                ", cena=" + cena +
+                ", trajanje=" + trajanje +
+                ", datumPocetka=" + datumPocetka +
+                ", datumKraja=" + datumKraja +
+                ", preostalaMesta=" + preostalaMesta +
+                ", imeTrenera='" + imeTrenera + '\'' +
+                ", tipTreninga='" + tipTreninga + '\'' +
+                ", prosecnaOcena=" + prosecnaOcena +
+                ", nazivFitnesCentra='" + nazivFitnesCentra + '\'' +
+                ", nazivSale='" + nazivSale + '\'' +
+                ", odgovara=" + odgovara +
+                '}';
+    }
 }
