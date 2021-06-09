@@ -19,6 +19,7 @@ $(document).ready(function(){
         "prezime" : prezime,
         "telefon" : telefon,
         "email" : email,
+        "telefon" : telefon,
         "datumRodjenja" : datumRodjenja,
         "uloga" : 1
     	});
@@ -26,13 +27,13 @@ $(document).ready(function(){
 // alert(newKorisnik);
      $.ajax({
         type: "POST",
-        url: "http://localhost:8181/api/korisnik/registracija",
+        url: "http://localhost:8181/api/korisnik/registrujTrenera",
         dataType: "json",
         contentType: "application/json",
         data: obj,
         success: function () {
             alert(obj);
-            window.location.href = "index.html";
+            window.location.href = "zahtevZaRegistracijuTrenera.html";
         	},
         error: function (data) {
             alert("Da li se poruka prenela?");
@@ -43,4 +44,25 @@ $(document).ready(function(){
 
 
 	});
+	 $.ajax({
+            type: "GET",
+            url: "http://localhost:8181/api/korisnik/zahteviZaRegistracijuTrenera",
+            dataType: "json",
+            success: function (response) {                              // ova f-ja se izvršava posle uspešnog zahteva
+                console.log("SUCCESS:\n", response);                    // ispisujemo u konzoli povratnu vrednost radi provere
+
+                for (let trener of response) {                        // prolazimo kroz listu svih zaposlenih
+                    let row = "<tr>";                                   // kreiramo red za tabelu
+                    row += "<td>" + trener.ime + "</td>";       // ubacujemo podatke jednog zaposlenog u polja
+                    row += "<td>" + trener.prezime + "</td>";
+                    row += "<td>" + trener.email + "</td>";
+                    row += "<td>" + trener.telefon + "</td>";
+                    row += "</tr>";                                     // završavamo kreiranje reda
+
+                    $('#zahteviZaRegistracijuTrenera').append(row);                        // ubacujemo kreirani red u tabelu čiji je id = employees
+                }
+            },
+            error: function (response) {
+            }
+        });
 });

@@ -1,9 +1,6 @@
 package com.example.Web.Controller;
 
-import com.example.Web.Model.Administrator;
-import com.example.Web.Model.Clan;
-import com.example.Web.Model.Korisnik;
-import com.example.Web.Model.Trener;
+import com.example.Web.Model.*;
 import com.example.Web.Model.dto.*;
 import com.example.Web.Service.AdministratorService;
 import com.example.Web.Service.ClanService;
@@ -30,6 +27,22 @@ public class KorisnikController {
     this.administratorService = administratorService; }
 
 
+    @GetMapping(value="/zahteviZaRegistracijuTrenera", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RegistracijaDTO>> getRegistracijaTrenera() {
+        List<Trener> treneri = this.trenerService.findAll();
+
+        List<RegistracijaDTO> trazeniTreneri = new ArrayList<RegistracijaDTO>();
+
+        for(Trener t : treneri) {
+            if(t.isRegistrovan() == false) {
+                RegistracijaDTO trener = new RegistracijaDTO( t.getKorisnickoIme(), t.getIme(), t.getPrezime(), t.getLozinka(),
+                        t.getTelefon(), t.getEmail(), t.getDatumRodjenja(), t.getUloga());
+                trazeniTreneri.add(trener);
+            }
+
+        }
+        return new ResponseEntity<>(trazeniTreneri, HttpStatus.OK);
+    }
     @PostMapping(
 			value =("/login"),
 		    consumes = MediaType.APPLICATION_JSON_VALUE,
@@ -103,7 +116,7 @@ public class KorisnikController {
         }
         return new ResponseEntity<>(trazeniKorisnici, HttpStatus.OK);
     }
-    @PostMapping(value="/registrujClana" ,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value="/clanovi")
+    @PostMapping(value="/registrujClana" ,consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> createClan(@RequestBody RegistracijaDTO DTO) throws Exception {
         Clan korisnik = new Clan(DTO.getKorisnickoIme(), DTO.getLozinka(), DTO.getIme(), DTO.getPrezime(),
                 DTO.getDatumRodjenja(), DTO.getEmail(), DTO.getTelefon(),  DTO.getUloga());
@@ -168,7 +181,7 @@ public class KorisnikController {
         return new ResponseEntity<>(trazeniKorisnici, HttpStatus.OK);
     }
 
-    @PostMapping(value="/registrujTrenera",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE, value="/treneri")
+    @PostMapping(value="/registrujTrenera",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> createTrener(@RequestBody RegistracijaDTO DTO) throws Exception {
         Trener korisnik = new Trener(DTO.getKorisnickoIme(), DTO.getLozinka(), DTO.getIme(), DTO.getPrezime(),
                 DTO.getDatumRodjenja(),DTO.getEmail(), DTO.getTelefon(),  DTO.getUloga());

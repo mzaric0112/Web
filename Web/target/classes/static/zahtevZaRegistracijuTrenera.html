@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/jquery.min.js"></script>
+    <!-- 2. Ukljucivanje jQuery Validate biblioteke za validaciju polja forme (opciono).
+            O načinu upotrebe pogledati na: https://jqueryvalidation.org/ -->
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/registracijaTrenera.js"></script>
     <style>
     h1,h2,h3,h4,h5,h6 {font-family: "Oswald"
     }
@@ -38,34 +43,14 @@
 </div>
 <div class="container">
     <h1 class="w3-xlarge"><b>Pristigli zahtevi za registraciju trenera</b></h1>
-    <table style="width:100%">
+    <table id="zahteviZaRegistracijuTrenera" style="width:100%">
         <tr>
             <th>Ime</th>
             <th>Prezime</th>
             <th>E-mail</th>
             <th>Kontakt telefon</th>
-            <th>Potvrdi/Odbij</th>
         </tr>
-        <tr>
-            <td>Zorana</td>
-            <td>Stevic</td>
-            <td>zoranaste@gmail.com</td>
-            <td>066789452</td>
-            <td>
-                <button   type="button" class="btn btn-outline-info">Prihvati</button>
-                <button   type="button" class="btn btn-outline-info">Odbij</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Marko</td>
-            <td>Markovic</td>
-            <td>markoama@gmail.com</td>
-            <td>0648448755</td>
-            <td>
-                <button   type="button" class="btn btn-outline-info">Prihvati</button>
-                <button   type="button" class="btn btn-outline-info">Odbij</button>
-            </td>
-        </tr>
+
     </table>
 </div>
 

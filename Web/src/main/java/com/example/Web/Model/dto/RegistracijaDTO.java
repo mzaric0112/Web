@@ -11,7 +11,6 @@ import java.util.Date;
 @AllArgsConstructor
 
 public class RegistracijaDTO {
-    private Long id;
     private String korisnickoIme;
     private String ime;
     private String prezime;
