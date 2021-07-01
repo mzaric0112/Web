@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 
                          $('#terminiTreninga').append(row);
-                          window.location.href = "pretragaTreninga.html";
+//                          window.location.href = "pretragaTreninga.html";
 
 
                      }

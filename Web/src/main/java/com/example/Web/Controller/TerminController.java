@@ -202,7 +202,7 @@ public class TerminController {
         for(FiltriraniTreninziDTO trening : zasortiranje) {
             System.out.println(trening + "\n");
         }
-/*
+
 		switch (info.getTipSortiranja()) {
 		case 1:
 			for(int i = 0; i < zasortiranje.size(); i++) {
@@ -272,7 +272,7 @@ public class TerminController {
                 }
             }
             break;
-		}*/
+		}
 
 
 		return new ResponseEntity<>(zasortiranje, HttpStatus.OK);
