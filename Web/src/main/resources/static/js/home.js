@@ -4,16 +4,19 @@ $(document).ready(function(){
         $("#treneriFunkcije").css('display', 'none');
         $("#adminFunkcije").css('display', 'none');
 
-    }else if(localStorage.getItem('uloga') == 'CLAN') {
-        $("#gledaociFunkcije").css('display', 'block');
+    }
+    if(localStorage.getItem('uloga') == 2) {
+        $("#clanoviFunkcije").css('display', 'block');
         $("#treneriFunkcije").css('display', 'none');
         $("#adminFunkcije").css('display', 'none');
-    }else if(localStorage.getItem('uloga') == 'TRENER'){
-        $("#gledaociFunkcije").css('display', 'none');
-        $("#menadzeriFunkcije").css('display', 'block');
+    }
+    if(localStorage.getItem('uloga') == 1){
+        $("#clanoviFunkcije").css('display', 'none');
+        $("#treneriFunkcije").css('display', 'block');
         $("#adminFunkcije").css('display', 'none');
-    }else{
-        $("#gledaociFunkcije").css('display', 'none');
+    }
+    else{
+        $("#clanoviFunkcije").css('display', 'none');
         $("#treneriFunkcije").css('display', 'none');
         $("#adminFunkcije").css('display', 'block');
     }

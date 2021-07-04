@@ -2,9 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Pregled svih fitnes centara</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/fitnesCentri.js"></script>
+    <style>
+        h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+        body {font-family: "Open Sans"}
+        .container{
+            align-content: center;
+            align-self: center;
+            align-items: center;
+
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="w3-light-grey">
+
+
+<div>
+    <h1>Fitnes centri</h1>
+    <br><br>
+    <div class="container">
+        <table id="fitnesCentri" class="display" >
+            <tr>
+                <th>Naziv</th>
+                <th>Adresa</th>
+                <th>Broj centrale</th>
+
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<button id="obrisi">Obrisi</button>
+<button id="izmeni">Izmeni</button>
 </body>
 </html>
