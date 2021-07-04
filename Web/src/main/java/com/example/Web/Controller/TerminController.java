@@ -109,19 +109,19 @@ public class TerminController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-  @PostMapping(value = ("/odradjeniTreninzi"),
+  /*@PostMapping(value = ("/odradjeniTreninzi"),
           consumes = MediaType.APPLICATION_JSON_VALUE,
           produces = MediaType.APPLICATION_JSON_VALUE
   )
   public ResponseEntity<OdradjeniTreninziDTO> odradjeniTreninzi(@RequestBody KojiKorisnikDTO info) {
-        Clan clan =
+        //Clan clan =
         List<OdradjeniTreninziDTO> ret = new ArrayList<>();
-      for(Termin t: this.terminService.findAll()) {
+     // for(Termin t: this.terminService.findAll()) {
 
-      }
+      //}
 
 
-  }
+  }*/
 
 
 
