@@ -1,29 +1,12 @@
 $(document).ready(function(){
- if(localStorage.getItem('uloga') != "CLAN")
-        $("#zaClanove").css('display', 'none');
-    else
-        $("#zaClanove").css('display', 'block');
-     $("#traziTrening").submit(function(event) {
-        event.preventDefault();
 
-        var naziv = $("#naziv").val();
-        var trajanje = $("#trajanje").val();
-
-        var datumPocetka = $("#datumPocetka").val();
-        var cena = $("#cena").val();
-
-        var tipSortiranja = $("#sortiranje").val();
-        var obj = JSON.stringify({
-                "naziv" : naziv,
-                "trajanje" : trajanje,
-                "cena" : cena,
-                "datumPocetka" : datumPocetka,
-                "tipSortiranja" : tipSortiranja
-        });
-
+    var korisnickoIme = localStorage.getItem('korisnickoIme');
+    var obj = JSON.stringify({
+      "korisnickoIme" : korisnickoIme
+      });
      $.ajax({
                  type: "POST",
-                 url: "http://localhost:8181/api/termini/pretraga",
+                 url: "http://localhost:8181/api/termini/odradjeniTreninzi",
                  dataType: "json",
                  contentType: "application/json",
                  data: obj,
@@ -36,8 +19,6 @@ $(document).ready(function(){
                          row += "<td>" + data[i]['cena'] + "</td>";
                          row += "<td>" + data[i]['trajanje'] + "</td>";
                          row += "<td>" + (data[i]['datumPocetka'].split("T"))[0] + "</td>";
-                         row += "<td>" + (data[i]['datumKraja'].split("T"))[0] + "</td>";
-                         row += "<td>" + data[i]['preostalaMesta'] + "</td>";
                          row += "<td>" + data[i]['imeTrenera'] + "</td>";
                          row += "<td>" + data[i]['tipTreninga'] + "</td>";
                          row += "<td>" + data[i]['prosecnaOcena'] + "</td>";
@@ -59,22 +40,4 @@ $(document).ready(function(){
                  }
              });
      });
-
-var table = $('#terminiTreninga').DataTable();
-
-    $('#terminiTreninga tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
-
-    $('#button').click( function () {
-        alert( table.rows('.selected').data().length +' row(s) selected' );
-    } );
-
-
-
-
-
-
-});
-
-
+ });

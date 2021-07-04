@@ -12,6 +12,8 @@ $(document).ready(function () {
                 row += "<td>" + trening.opis + "</td>";
                 row += "<td>" + trening.tipTreninga + "</td>";
                 row += "<td>" + trening.trajanje + "</td>";
+                row += "<td>" + trening. + "</td>";
+
                 row += "</tr>";                                     // završavamo kreiranje reda
 
                 $('#treninzi').append(row);                        // ubacujemo kreirani red u tabelu čiji je id = employees

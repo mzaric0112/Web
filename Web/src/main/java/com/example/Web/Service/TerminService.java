@@ -11,5 +11,6 @@ public interface TerminService {
     Termin create(Termin trening) throws Exception;
     Termin update(Termin trening) throws Exception;
     void delete(Long id);
+   // boolean rezervisi()
 
 }

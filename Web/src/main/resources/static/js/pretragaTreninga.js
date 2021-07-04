@@ -1,4 +1,8 @@
 $(document).ready(function(){
+ if(localStorage.getItem('uloga') != "CLAN")
+        $("#zaClanove").css('display', 'none');
+    else
+        $("#zaClanove").css('display', 'block');
      $("#traziTrening").submit(function(event) {
         event.preventDefault();
 
@@ -55,6 +59,21 @@ $(document).ready(function(){
                  }
              });
      });
+
+var table = $('#terminiTreninga').DataTable();
+
+    $('#terminiTreninga tbody').on( 'click', 'tr', function () {
+        $(this).toggleClass('selected');
+    } );
+
+    $('#button').click( function () {
+        alert( table.rows('.selected').data().length +' row(s) selected' );
+    } );
+
+
+
+
+
 
 });
 

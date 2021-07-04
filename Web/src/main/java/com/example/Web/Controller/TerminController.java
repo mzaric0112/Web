@@ -1,10 +1,9 @@
 package com.example.Web.Controller;
 
+import com.example.Web.Model.Clan;
 import com.example.Web.Model.OcenaTreninga;
 import com.example.Web.Model.Termin;
-import com.example.Web.Model.dto.FiltriraniTreninziDTO;
-import com.example.Web.Model.dto.ParametriPretrageDTO;
-import com.example.Web.Model.dto.TerminDTO;
+import com.example.Web.Model.dto.*;
 import com.example.Web.Service.OcenaTreningaService;
 import com.example.Web.Service.TerminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,22 @@ public class TerminController {
         this.ocenaTreningaService = ocenaTreningaService;
     }
 
+
+
+    	@PostMapping(
+			value = ("/rezervacija"),
+		    consumes = MediaType.APPLICATION_JSON_VALUE,
+    		produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<RezervacijaDTO> rezervisi (@RequestBody RezervacijaDTO info) throws Exception{
+
+
+
+
+		//this.terminskaListaProjekcijaService.dodajRezervaciju(info.getNumber(), this.korisnikService.getByUsername(info.getString()));
+
+		return new ResponseEntity<>(info, HttpStatus.OK);
+	}
 
 
 
@@ -94,46 +109,22 @@ public class TerminController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/naziv/{naziv}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<FiltriraniTreninziDTO>> traziPoNazivu(@PathVariable(name = "naziv") String naziv) throws Exception {
-        List<Termin> termini = terminService.findAll();
-        List<FiltriraniTreninziDTO> ret = new ArrayList<>();
-        for (Termin t : termini) {
-            if (t.getTrening().getNaziv().contains(naziv)) {
-                FiltriraniTreninziDTO filtrirani = new FiltriraniTreninziDTO();
-                filtrirani.setIdt(t.getId());
-                filtrirani.setNaziv(t.getTrening().getNaziv());
-                filtrirani.setCena(t.getCena());
-                filtrirani.setTrajanje(t.getTrening().getTrajanje());
-                filtrirani.setDatumPocetka(t.getDatumPocetka());
-                filtrirani.setDatumKraja(t.getDatumKraja());
-                filtrirani.setImeTrenera(t.getTrening().getTrener().getIme());
-                filtrirani.setTipTreninga(t.getTrening().getTipTreninga());
-                filtrirani.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
-                filtrirani.setNazivSale(t.getSala().getOznaka());
-                float ocenaSrednja = 0;
-                int delioc = 0;
-                for (OcenaTreninga ocena : this.ocenaTreningaService.getByTreningId(t.getTrening().getId())) {
-                    if (ocena.getOcena() > 0) {
-                        ocenaSrednja += ocena.getOcena();
-                        delioc++;
-                    }
-                }
-                if (delioc == 0) {
-                    ocenaSrednja = 0;
-                } else {
-                    ocenaSrednja /= delioc;
-                }
-                filtrirani.setProsecnaOcena(ocenaSrednja);
-                filtrirani.setPreostalaMesta(t.getSala().getKapacitet() - t.getBrojClanova());
-                filtrirani.setOdgovara(true);
+  @PostMapping(value = ("/odradjeniTreninzi"),
+          consumes = MediaType.APPLICATION_JSON_VALUE,
+          produces = MediaType.APPLICATION_JSON_VALUE
+  )
+  public ResponseEntity<OdradjeniTreninziDTO> odradjeniTreninzi(@RequestBody KojiKorisnikDTO info) {
+        Clan clan =
+        List<OdradjeniTreninziDTO> ret = new ArrayList<>();
+      for(Termin t: this.terminService.findAll()) {
+
+      }
 
 
-                ret.add(filtrirani);
-            }
-        }
-        return new ResponseEntity<>(ret, HttpStatus.OK);
-    }
+  }
+
+
+
     @PostMapping(
 			value = ("/pretraga"),
 		    consumes = MediaType.APPLICATION_JSON_VALUE,
