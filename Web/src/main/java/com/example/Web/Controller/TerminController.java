@@ -4,6 +4,7 @@ import com.example.Web.Model.Clan;
 import com.example.Web.Model.OcenaTreninga;
 import com.example.Web.Model.Termin;
 import com.example.Web.Model.dto.*;
+import com.example.Web.Service.ClanService;
 import com.example.Web.Service.OcenaTreningaService;
 import com.example.Web.Service.TerminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Console;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -21,10 +23,12 @@ import java.util.List;
 public class TerminController {
     private final TerminService terminService;
     private final OcenaTreningaService ocenaTreningaService;
+    private final ClanService clanService;
     @Autowired
-    public TerminController(TerminService terminService, OcenaTreningaService ocenaTreningaService) {
+    public TerminController(TerminService terminService, OcenaTreningaService ocenaTreningaService, ClanService clanService) {
         this.terminService = terminService;
         this.ocenaTreningaService = ocenaTreningaService;
+        this.clanService = clanService;
     }
 
 
@@ -36,10 +40,23 @@ public class TerminController {
 			)
 	public ResponseEntity<RezervacijaDTO> rezervisi (@RequestBody RezervacijaDTO info) throws Exception{
 
+            Termin Termin = this.terminService.findOne(info.getIdTermina());
+            if((Termin.getSala().getKapacitet() - Termin.getPrijavljeniClanovi().size()) < 1) {
+
+                throw new Exception("Nema slobodnih mesta za trazeni termin!");
+            }
+            else{
+                Clan clan = clanService.findOne(info.getIdKorisnika());
+                Termin.getPrijavljeniClanovi().add(clan);
+                Termin.setBrojClanova(Termin.getBrojClanova()+1);
+                terminService.update(Termin);
+                clan.getPrijavljeniTreninzi().add(Termin);
+                clanService.update(clan);
+
+            }
 
 
-
-		//this.terminskaListaProjekcijaService.dodajRezervaciju(info.getNumber(), this.korisnikService.getByUsername(info.getString()));
+            //this.terminskaListaProjekcijaService.dodajRezervaciju(info.getNumber(), this.korisnikService.getByUsername(info.getString()));
 
 		return new ResponseEntity<>(info, HttpStatus.OK);
 	}
@@ -133,63 +150,69 @@ public class TerminController {
 	public ResponseEntity<List<FiltriraniTreninziDTO>> traziTermine(@RequestBody ParametriPretrageDTO info) throws Exception{
         List<FiltriraniTreninziDTO> ret = new ArrayList<>();
         for(Termin t: this.terminService.findAll()) {
-            FiltriraniTreninziDTO filtrirani = new FiltriraniTreninziDTO();
-           filtrirani.setIdt(t.getId());
-           filtrirani.setNaziv(t.getTrening().getNaziv());
-           filtrirani.setCena(t.getCena());
-           filtrirani.setTrajanje(t.getTrening().getTrajanje());
-           filtrirani.setDatumPocetka(t.getDatumPocetka());
-           filtrirani.setDatumKraja(t.getDatumKraja());
-           filtrirani.setImeTrenera(t.getTrening().getTrener().getIme());
-           filtrirani.setTipTreninga(t.getTrening().getTipTreninga());
-           filtrirani.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
-           filtrirani.setNazivSale(t.getSala().getOznaka());
-           float ocenaSrednja = 0;
-           int delioc = 0;
-           for(OcenaTreninga ocena : this.ocenaTreningaService.getByTreningId(t.getTrening().getId())) {
-               if(ocena.getOcena() >0) {
-                   ocenaSrednja += ocena.getOcena();
-                   delioc++;
-               }
-           }
-           if(delioc ==0 ){
-               ocenaSrednja =0;
-           }
-           else{
-               ocenaSrednja /= delioc;
-           }
-            filtrirani.setProsecnaOcena(ocenaSrednja);
-            filtrirani.setPreostalaMesta(t.getSala().getKapacitet() - t.getBrojClanova());
-            filtrirani.setOdgovara(true);
 
 
-          ret.add(filtrirani);
+
+
+                FiltriraniTreninziDTO filtrirani = new FiltriraniTreninziDTO();
+                filtrirani.setIdt(t.getId());
+                filtrirani.setNaziv(t.getTrening().getNaziv());
+                filtrirani.setCena(t.getCena());
+                filtrirani.setTrajanje(t.getTrening().getTrajanje());
+                filtrirani.setDatumPocetka(t.getDatumPocetka());
+                filtrirani.setDatumKraja(t.getDatumKraja());
+                filtrirani.setImeTrenera(t.getTrening().getTrener().getIme());
+                filtrirani.setTipTreninga(t.getTrening().getTipTreninga());
+                filtrirani.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
+                filtrirani.setNazivSale(t.getSala().getOznaka());
+                float ocenaSrednja = 0;
+                int delioc = 0;
+                for(OcenaTreninga ocena : this.ocenaTreningaService.getByTreningId(t.getTrening().getId())) {
+                    if(ocena.getOcena() >0) {
+                        ocenaSrednja += ocena.getOcena();
+                        delioc++;
+                    }
+                }
+                if(delioc ==0 ){
+                    ocenaSrednja =0;
+                }
+                else{
+                    ocenaSrednja /= delioc;
+                }
+                filtrirani.setProsecnaOcena(ocenaSrednja);
+                filtrirani.setPreostalaMesta(t.getSala().getKapacitet() - t.getBrojClanova());
+                filtrirani.setOdgovara(true);
+
+
+                ret.add(filtrirani);
+
+            for(FiltriraniTreninziDTO trening : ret) {
+                System.out.println(trening + "\n");
+            }
+
+            if(info.getNaziv() != null)
+                for(FiltriraniTreninziDTO pp : ret)
+                    if(!pp.getNaziv().contains(info.getNaziv()))
+                        pp.setOdgovara(false);
+            if(info.getCena() != 0)
+                for(FiltriraniTreninziDTO pp : ret)
+                    if(pp.getCena() > info.getCena())
+                        pp.setOdgovara(false);
+            if(info.getTrajanje() != 0)
+                for(FiltriraniTreninziDTO pp : ret)
+                    if(pp.getTrajanje() > info.getTrajanje())
+                        pp.setOdgovara(false);
+            if(info.getDatumPocetka() != null)
+                for(FiltriraniTreninziDTO pp : ret)
+                    if(info.getDatumPocetka().after(pp.getDatumPocetka()))
+                        pp.setOdgovara(false);
+
+
         }
-        for(FiltriraniTreninziDTO trening : ret) {
-            System.out.println(trening + "\n");
-        }
-
-		if(info.getNaziv() != null)
-			for(FiltriraniTreninziDTO pp : ret)
-				if(!pp.getNaziv().contains(info.getNaziv()))
-					pp.setOdgovara(false);
-        if(info.getCena() != 0)
-		for(FiltriraniTreninziDTO pp : ret)
-			if(pp.getCena() > info.getCena())
-				pp.setOdgovara(false);
-        if(info.getTrajanje() != 0)
+        List<FiltriraniTreninziDTO> zasortiranje = new ArrayList<>();
         for(FiltriraniTreninziDTO pp : ret)
-            if(pp.getTrajanje() > info.getTrajanje())
-                pp.setOdgovara(false);
-		if(info.getDatumPocetka() != null)
-			for(FiltriraniTreninziDTO pp : ret)
-				if(info.getDatumPocetka().after(pp.getDatumPocetka()))
-					pp.setOdgovara(false);
-
-		List<FiltriraniTreninziDTO> zasortiranje = new ArrayList<>();
-		for(FiltriraniTreninziDTO pp : ret)
-			if(pp.isOdgovara())
-				zasortiranje.add(pp);
+            if(pp.isOdgovara())
+                zasortiranje.add(pp);
         for(FiltriraniTreninziDTO trening : zasortiranje) {
             System.out.println(trening + "\n");
         }

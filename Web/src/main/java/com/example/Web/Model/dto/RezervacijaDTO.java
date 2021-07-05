@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 
 public class RezervacijaDTO {
-        private String string;
-        private Long number;
+        private Long idKorisnika;
+        private Long idTermina;
 
         public RezervacijaDTO() {}
 

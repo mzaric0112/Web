@@ -4,13 +4,13 @@ $(document).ready(function(){
         $("#treneriFunkcije").css('display', 'none');
         $("#adminFunkcije").css('display', 'none');
 
-    }
-    if(localStorage.getItem('uloga') == 2) {
+    } else
+    if(localStorage.getItem('uloga') == "CLAN") {
         $("#clanoviFunkcije").css('display', 'block');
         $("#treneriFunkcije").css('display', 'none');
         $("#adminFunkcije").css('display', 'none');
-    }
-    if(localStorage.getItem('uloga') == 1){
+    } else
+    if(localStorage.getItem('uloga') == "TRENER"){
         $("#clanoviFunkcije").css('display', 'none');
         $("#treneriFunkcije").css('display', 'block');
         $("#adminFunkcije").css('display', 'none');

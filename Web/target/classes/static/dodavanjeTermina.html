@@ -2,9 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>Dodavanje termina treninga</title><link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/home.js"></script>
+    <style>
+        h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+        body {font-family: "Open Sans"}
+        .container{
+            align-content: center;
+            align-self: center;
+            align-items: center;
+
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="w3-light-grey">
+<div class="w3-content" style="max-width:1600px">
+
+    <!-- Header -->
+    <header class="w3-container w3-center w3-padding-48 w3-white">
+        <h6 class="w3-xxxlarge"><span class="w3-tag" > SPARTA</span></h6>
+        <h1 class="w3-xlarge"><b>FITNESS CENTER</b></h1>
+
+    </header>
+</div>
+
+<div class="container">
+    <h1 class="w3-xlarge"><b>Kreiranje novog termina treninga</b></h1>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-12">
+            <div class="modal-content">
+                <h2 class="text-center">Popunite formu da biste kreirali novi termin</h2>
+                <form id="addTrenerForm" >
+                    <div class="form-group1">
+                        <h5 for="korisnickoIme">Vrsta treninga:</h5>
+                        <input id="korisnickoIme" name="korisnickoIme" type="text" class="registar" placeholder="Username">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="lozinka">Cena:</h5>
+                        <input id="lozinka" name="lozinka" type="password" class="registar" placeholder="Password">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="ime">Datum pocetka:</h5>
+                        <input id="ime" name="ime" type="text" class="registar" placeholder="Ime">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="prezime">Prezime:</h5>
+                        <input id="prezime" name="prezime"type="text" class="registar" placeholder="Prezime">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="telefon">Kontakt:</h5>
+                        <input id="telefon" name="kontaktTelefon"type="text" class="registar" placeholder="Kontakt">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="email">E-mail:</h5>
+                        <input id="email" name="eadresa"type="text" class="registar" placeholder="E-mail">
+                    </div>
+
+                    <div class="form-group1">
+                        <h5 for="datumRodjenja">Datum rođenja:</h5>
+                        <input id="datumRodjenja"  name="datumRodjenja" type="date" value="2020-05-21" class="registar datum" placeholder="Datum rodjenja">
+                    </div>
+                    <div>
+                        <button id="formTrenerBtn" value="Register" type="submit" class="btn btn-success">Registruj se</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

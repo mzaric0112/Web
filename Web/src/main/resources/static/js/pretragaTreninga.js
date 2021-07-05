@@ -31,7 +31,7 @@ $(document).ready(function(){
                      console.log("SUCCESS : ", data);
 
                          for (i = 0; i < data.length; i++) {
-                         var row = "<tr>";
+                         var row = "<tr data-id=" + data[i]['idt'] + ">";
                          row += "<td>" + data[i]['naziv'] + "</td>";
                          row += "<td>" + data[i]['cena'] + "</td>";
                          row += "<td>" + data[i]['trajanje'] + "</td>";
@@ -60,21 +60,51 @@ $(document).ready(function(){
              });
      });
 
-var table = $('#terminiTreninga').DataTable();
+// var table = $('#terminiTreninga').DataTable();
+//
+//     $('#terminiTreninga tbody').on( 'click', 'tr', function () {
+//         $(this).toggleClass('selected');
+//     } );
+//
+//     $('#button').click( function () {
+//         alert( table.rows('.selected').data().length +' row(s) selected' );
+//     } );
 
-    $('#terminiTreninga tbody').on( 'click', 'tr', function () {
-        $(this).toggleClass('selected');
-    } );
+    let selektovanRed = 0;
+    let staraBoja = null;
+    $("#terminiTreninga").on('click', 'tr:not(:first-child)', function() {
+        if (staraBoja != null) {
+            $('#terminiTreninga tr[data-id=' + selektovanRed + ']').css('background-color', staraBoja); // vracamo staru boju
+        }
+        selektovanRed = this.dataset.id;                    // cuvamo id selektovanog termina
+        staraBoja = $(this).css('background-color');        // cuvamo staru boju da bi vratili kad se odselektuje
 
-    $('#button').click( function () {
-        alert( table.rows('.selected').data().length +' row(s) selected' );
-    } );
+        $(this).css('background-color', '#a6c9e2');         // postavljamo novu boju
+        console.log("Selektovan red ", selektovanRed);      // ispis u konzolu radi provere
+    });
 
-
-
-
-
+    $("#rezervisi").click(function() {
+        var korisnik = localStorage.getItem('id');
+        var termin = selektovanRed;
+         var obj = JSON.stringify({
+                        "idKorisnika" : korisnik,
+                        "idTermina" : termin
+                });
+       // console.log("Rezervisan termin ", selektovanRed);
+        $.ajax({
+               type: "POST",
+               url: "http://localhost:8181/api/termini/rezervacija",
+               dataType: "json",
+               contentType: "application/json",
+               data: obj,
+               success: function (data) {
+                   console.log("SUCCESS : ", data);
+                   window.location.href = "prijavljeni.html";
+                   },
+               error: function (data) {
+                   alert("Greška!");
+                   }
+               });
+    });
 
 });
-
-

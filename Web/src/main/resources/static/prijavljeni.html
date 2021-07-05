@@ -2,14 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Treneri zaposleni u fitnes centru</title>
+    <title>Prijavljeni treninzi</title> <script src="js/jquery.min.js"></script>
+    <script src="js/pretragaTreninga.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open Sans">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/brisanjeTrenera.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
     <style>
         h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
         body {font-family: "Open Sans"}
@@ -20,7 +19,9 @@
 
             text-align: center;
         }
+
     </style>
+    <link rel="stylesheet" href="css/table.css"></link>
 </head>
 <body class="w3-light-grey">
 <div class="w3-content" style="max-width:1600px">
@@ -33,19 +34,28 @@
     </header>
 </div>
 <div>
-    <h1>Treneri</h1>
+    <h1>Termini</h1>
     <br><br>
     <div class="container">
-        <table id="treneri" class="display" >
+        <table id="terminiTreninga" class="display" >
             <tr>
-                <th>Ime</th>
-                <th>Prezime </th>
-                <th>Datum rodjenja</th>
+                <th>Naziv</th>
+                <th>Cena</th>
+                <th>Trajanje</th>
+                <th>Datum pocetka</th>
+                <th>Datum kraja</th>
+                <th>Preostala mesta</th>
+                <th>Ime trenera</th>
+                <th>Tip treninga</th>
+                <th>Prosecna ocena</th>
+                <th>Naziv fitnes centra</th>
+                <th>Naziv  sale</th>
                 <th></th>
             </tr>
         </table>
     </div>
 </div>
-<button id="obrisi">Obrisi</button>
+<button id="rezervisi">Rezervisi</button>
+
 </body>
 </html>
