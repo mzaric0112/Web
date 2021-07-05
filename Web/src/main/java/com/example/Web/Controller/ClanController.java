@@ -2,7 +2,9 @@ package com.example.Web.Controller;
 
 
 import com.example.Web.Model.Clan;
+import com.example.Web.Model.dto.FiltriraniTreninziDTO;
 import com.example.Web.Model.dto.KorisnikDTO;
+import com.example.Web.Model.dto.KorisnikTreninziDTO;
 import com.example.Web.Model.dto.KreiranjeKorisnikaDTO;
 import com.example.Web.Service.ClanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,8 @@ public class ClanController {
 
         return new ResponseEntity<>(trazeniKorisnik, HttpStatus.OK);
     }
+
+
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<KorisnikDTO>> getUsers() {

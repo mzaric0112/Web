@@ -61,6 +61,30 @@ public class TerminController {
 		return new ResponseEntity<>(info, HttpStatus.OK);
 	}
 
+    @PostMapping(
+            value = ("/otkazivanjeTermina"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<RezervacijaDTO> otkazi (@RequestBody RezervacijaDTO info) throws Exception{
+
+        Termin Termin = this.terminService.findOne(info.getIdTermina());
+
+            Clan clan = clanService.findOne(info.getIdKorisnika());
+            Termin.getPrijavljeniClanovi().remove(clan);
+            Termin.setBrojClanova(Termin.getBrojClanova()-1);
+            terminService.update(Termin);
+            clan.getPrijavljeniTreninzi().remove(Termin);
+            clanService.update(clan);
+
+
+
+
+        //this.terminskaListaProjekcijaService.dodajRezervaciju(info.getNumber(), this.korisnikService.getByUsername(info.getString()));
+
+        return new ResponseEntity<>(info, HttpStatus.OK);
+    }
+
 
 
 
@@ -140,7 +164,30 @@ public class TerminController {
 
   }*/
 
+    @PostMapping(value = ("/rezervisaniTreninzi"), consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FiltriraniTreninziDTO>> createUser(@RequestBody KorisnikTreninziDTO kDTO) throws Exception {
+        Clan korisnik =  clanService.findOne(kDTO.getIdKorisnika());
+        List<FiltriraniTreninziDTO> ret = new ArrayList<>();
+        for(Termin t : korisnik.getPrijavljeniTreninzi()) {
+            FiltriraniTreninziDTO filtrirani = new FiltriraniTreninziDTO();
+            filtrirani.setIdt(t.getId());
+            filtrirani.setNaziv(t.getTrening().getNaziv());
+            filtrirani.setCena(t.getCena());
+            filtrirani.setTrajanje(t.getTrening().getTrajanje());
+            filtrirani.setDatumPocetka(t.getDatumPocetka());
+            filtrirani.setDatumKraja(t.getDatumKraja());
+            filtrirani.setImeTrenera(t.getTrening().getTrener().getIme());
+            filtrirani.setTipTreninga(t.getTrening().getTipTreninga());
+            filtrirani.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
+            filtrirani.setNazivSale(t.getSala().getOznaka());
 
+            filtrirani.getProsecnaOcena();
+            filtrirani.getPreostalaMesta();
+            ret.add(filtrirani);
+        }
+        return new ResponseEntity<>(ret, HttpStatus.CREATED);
+
+    }
 
     @PostMapping(
 			value = ("/pretraga"),
