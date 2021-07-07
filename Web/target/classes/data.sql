@@ -40,6 +40,8 @@ INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-07-12 14:15:00', '2021-06-12 13:15:00', 1, 3, 8);
 INSERT INTO ODRADJENI_TRENINZI(CLAN_ID, TRENING_ID) VALUES (1, 1);
 INSERT INTO OCENA_TRENINGA(OCENA, CLAN_ID, TERMIN_ID) VALUES (4, 1, 1);
+INSERT INTO FITNES_CENTAR (naziv, adresa, email, broj_centrale) VALUES ('Atina', 'Beogradska 15', 'atina@gmail.com', '021711163');
+INSERT INTO FITNES_CENTAR (naziv, adresa, email, broj_centrale) VALUES ('Troya', 'Dunavska 12', 'troya@gmail.com', '021778663');
 
 
 

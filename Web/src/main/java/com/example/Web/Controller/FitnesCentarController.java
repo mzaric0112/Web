@@ -2,6 +2,7 @@ package com.example.Web.Controller;
 
 import com.example.Web.Model.FitnesCentar;
 import com.example.Web.Model.dto.FitnesCentarDTO;
+import com.example.Web.Model.dto.KorisnikTreninziDTO;
 import com.example.Web.Repository.FitnesCentarRepository;
 import com.example.Web.Service.FitnesCentarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +71,11 @@ public class FitnesCentarController {
         return new ResponseEntity<>(azuriranFitnesCentar, HttpStatus.OK);
 
     }
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        this.fitnesCentarService.delete(id);
+    @PostMapping(value = "/brisanje",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> brisanje(@RequestBody KorisnikTreninziDTO id) {
+        this.fitnesCentarService.delete(id.getIdKorisnika());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
