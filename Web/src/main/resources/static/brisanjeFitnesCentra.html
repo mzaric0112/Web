@@ -54,7 +54,44 @@
         </table>
     </div>
 </div>
-<button id="obrisi">Obrisi</button>
-<button id="izmeni">Izmeni</button>
+<div class="modal-dialog text-center">
+    <button id="obrisi">Obrisi</button>
+</div>
+
+<div class="container">
+    <div class="modal-dialog text-center">
+        <div class="col-sm-12">
+            <div class="modal-content">
+                <h2 class="text-center">Popunite formu za izmenu</h2>
+                <form id="izmena" >
+                    <div class="form-group1">
+                        <h5 for="naziv">Naziv:</h5>
+                        <input id="naziv" name="naziv" type="text" class="registar" placeholder="Naziv">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="adresa">Adresa:</h5>
+                        <input id="adresa" name="adresa" type="text" class="registar" placeholder="Adresa">
+                    </div>
+                    <div class="form-group1">
+                        <h5 for="brojCentrale">Broj centrale:</h5>
+                        <input id="brojCentrale" name="brojCentrale" type="text" class="registar" placeholder="Broj Centrale">
+                    </div>
+
+
+                    <div class="form-group1">
+                        <h5 for="email">E-mail:</h5>
+                        <input id="email" name="eadresa"type="text" class="registar" placeholder="E-mail">
+                    </div>
+
+                    <div>
+
+                        <button id="izmeni" type="submit" value="Register" class="btn btn-success">Izmeni</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

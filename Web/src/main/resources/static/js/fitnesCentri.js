@@ -62,5 +62,36 @@ $(document).ready(function(){
                                });
        });
 
+$("#izmeni").click(function() {
+        var naziv = $("#naziv").val();
+        var adresa = $("#adresa").val();
+        var brojCentrale = $("#brojCentrale").val();
+        var email = $("#email").val();
+        var obj = JSON.stringify({
+           "id" : selektovanRed,
+           "naizv" : naziv,
+           "adresa" : adresa,
+           "brojCentrale" : brojCentrale,
+           "email" : email
+
+           });
+                              // console.log("Rezervisan termin ", selektovanRed);
+           $.ajax({
+               type: "PUT",
+               url: "http://localhost:8181/api/fitnesCentar/izmena",
+               dataType: "json",
+               contentType: "application/json",
+               data: obj,
+               success: function (data) {
+               console.log("SUCCESS : ", data);
+                //window.location.href = "brisanjeFitnesCentra.html";
+
+                            },
+                                      error: function (data) {
+                                          alert("Greška!");
+                                          console.log("ERROR : ", data);
+                                          }
+                               });
+       });
 
 });

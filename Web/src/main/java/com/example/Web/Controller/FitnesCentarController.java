@@ -59,16 +59,20 @@ public class FitnesCentarController {
         return new ResponseEntity<>(fitnesCentarDTO, HttpStatus.CREATED);
 
     }
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(value = "/izmena",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FitnesCentarDTO> updateFitnessCenter(@PathVariable Long id,
-                      @RequestBody FitnesCentarDTO fcDTO) throws Exception {
-        FitnesCentar fitnesCentar = new FitnesCentar(fcDTO.getNaziv(), fcDTO.getAdresa(), fcDTO.getBrojCentrale(), fcDTO.getEmail());
-        fitnesCentar.setId(id);
-        FitnesCentar izmenjenFitnesCentar = fitnesCentarService.update(fitnesCentar);
-        FitnesCentarDTO azuriranFitnesCentar = new FitnesCentarDTO(izmenjenFitnesCentar.getId(), izmenjenFitnesCentar.getNaziv(),
-                izmenjenFitnesCentar.getAdresa(), izmenjenFitnesCentar.getBrojCentrale(), izmenjenFitnesCentar.getEmail());
-        return new ResponseEntity<>(azuriranFitnesCentar, HttpStatus.OK);
+    public ResponseEntity<Void> izmena(@RequestBody FitnesCentarDTO fcDTO) throws Exception {
+        //FitnesCentar fitnesCentar = new FitnesCentar(fcDTO.getId(), fcDTO.getNaziv(), fcDTO.getAdresa(), fcDTO.getBrojCentrale(), fcDTO.getEmail());
+        FitnesCentar fitnesCentar = fitnesCentarService.findOne(fcDTO.getId());
+        fitnesCentar.setAdresa(fcDTO.getAdresa());
+        fitnesCentar.setNaziv(fcDTO.getNaziv());
+        fitnesCentar.setEmail(fcDTO.getEmail());
+        fitnesCentar.setBrojCentrale(fcDTO.getBrojCentrale());
+
+
+
+        return new ResponseEntity<>(HttpStatus.OK);
 
     }
     @PostMapping(value = "/brisanje",

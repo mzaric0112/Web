@@ -16,14 +16,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
+
+
 @Entity
+
 
 public class FitnesCentar implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String naziv;
     @Column
     private String adresa;
@@ -48,6 +51,16 @@ public class FitnesCentar implements Serializable {
 
     public FitnesCentar(String naziv, String adresa, String brojCentrale, String email) {
 
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.brojCentrale = brojCentrale;
+        this.email = email;
+        this.rasporedOdrzavanjaTreninga = null;
+        this.sale = null;
+        this.treneri = null;
+    }
+    public FitnesCentar(Long id, String naziv, String adresa, String brojCentrale, String email) {
+        this.id = id;
         this.naziv = naziv;
         this.adresa = adresa;
         this.brojCentrale = brojCentrale;
