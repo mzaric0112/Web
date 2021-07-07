@@ -9,6 +9,8 @@ import lombok.Setter;
 
 @AllArgsConstructor
 public class KojiKorisnikDTO {
-    private String korisnickoIme;
+    private Long idKorisnika;
+    private Long idTermina;
+    private float ocena;
     public KojiKorisnikDTO(){}
 }

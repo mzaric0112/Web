@@ -38,7 +38,7 @@ INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-07-12 12:45:00', '2021-06-12 11:15:00', 1, 4, 3);
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-07-13 12:15:00', '2021-06-13 11:15:00', 1, 1, 7);
 INSERT INTO TERMIN(broj_clanova, cena, datum_kraja, datum_pocetka, fitnes_centar_id, sala_id, trening_id) VALUES (0, 200, '2021-07-12 14:15:00', '2021-06-12 13:15:00', 1, 3, 8);
-
+INSERT INTO ODRADJENI_TRENINZI(CLAN_ID, TRENING_ID) VALUES (1, 1);
 
 
 
