@@ -180,6 +180,46 @@ public class TerminController {
 
 
   }
+    @PostMapping(value = ("/neocenjeni"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<OdradjeniTreninziDTO>> neocenjeniTreninzi(@RequestBody KorisnikTreninziDTO info) throws Exception {
+        Clan clan = clanService.findOne(info.getIdKorisnika());
+        List<OdradjeniTreninziDTO> ret = new ArrayList<>();
+        int oznaka = 0;
+        for(Termin t: clan.getOdradjeniTreninzi()) {
+            for(OcenaTreninga o : t.getOcena()) {
+                if(o.getClan().getId() == clan.getId()) {
+                   oznaka++;
+                }
+
+            }
+            if(oznaka == 0) {
+                OdradjeniTreninziDTO odr = new OdradjeniTreninziDTO();
+                odr.setIdt(t.getId());
+                odr.setNaziv(t.getTrening().getNaziv());
+                odr.setCena(t.getCena());
+                odr.setTrajanje(t.getTrening().getTrajanje());
+                odr.setDatumPocetka(t.getDatumPocetka());
+                odr.setTipTreninga(t.getTrening().getTipTreninga());
+                odr.setImeTrenera(t.getTrening().getTrener().getIme());
+                float suma = 0;
+                for(OcenaTreninga oc : t.getOcena()) {
+                    suma += oc.getOcena();
+                }
+                odr.setProsecnaOcena(suma / t.getOcena().size());
+                odr.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
+                odr.setNazivSale(t.getSala().getOznaka());
+                odr.setOdgovara(true);
+                ret.add(odr);
+            }
+
+        }
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+
+
+    }
 
     @PostMapping(value = ("/rezervisaniTreninzi"), consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FiltriraniTreninziDTO>> createUser(@RequestBody KorisnikTreninziDTO kDTO) throws Exception {
