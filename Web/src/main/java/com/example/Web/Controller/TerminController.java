@@ -170,7 +170,11 @@ public class TerminController {
         for(OcenaTreninga o : t.getOcena()) {
             suma += o.getOcena();
         }
-        odr.setProsecnaOcena(suma / t.getOcena().size());
+         if(suma == 0) {
+             odr.setProsecnaOcena(0);
+         }
+         else
+            odr.setProsecnaOcena(suma / t.getOcena().size());
         odr.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
         odr.setNazivSale(t.getSala().getOznaka());
         odr.setOdgovara(true);
@@ -208,7 +212,11 @@ public class TerminController {
                 for(OcenaTreninga oc : t.getOcena()) {
                     suma += oc.getOcena();
                 }
-                odr.setProsecnaOcena(suma / t.getOcena().size());
+                if(suma == 0) {
+                    odr.setProsecnaOcena(0);
+                }
+                else
+                    odr.setProsecnaOcena(suma / t.getOcena().size());
                 odr.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
                 odr.setNazivSale(t.getSala().getOznaka());
                 odr.setOdgovara(true);
@@ -220,6 +228,55 @@ public class TerminController {
 
 
     }
+
+
+    @PostMapping(value = ("/ocenjeni"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<List<OcenjeniTreninziDTO>> ocenjeniTreninzi(@RequestBody KorisnikTreninziDTO info) throws Exception {
+        Clan clan = clanService.findOne(info.getIdKorisnika());
+        List<OcenjeniTreninziDTO> ret = new ArrayList<>();
+        int oznaka = 0;
+        for(Termin t: clan.getOdradjeniTreninzi()) {
+            for(OcenaTreninga o : t.getOcena()) {
+                if(o.getClan().getId() == clan.getId()) {
+                    OcenjeniTreninziDTO odr = new OcenjeniTreninziDTO();
+                    odr.setIdt(t.getId());
+                    odr.setNaziv(t.getTrening().getNaziv());
+                    odr.setCena(t.getCena());
+                    odr.setTrajanje(t.getTrening().getTrajanje());
+                    odr.setDatumPocetka(t.getDatumPocetka());
+                    odr.setTipTreninga(t.getTrening().getTipTreninga());
+                    odr.setImeTrenera(t.getTrening().getTrener().getIme());
+                    float suma = 0;
+                    for(OcenaTreninga oc : t.getOcena()) {
+                        suma += oc.getOcena();
+                    }
+                    if(suma == 0) {
+                        odr.setProsecnaOcena(0);
+                    }
+                    else
+                        odr.setProsecnaOcena(suma / t.getOcena().size());
+                    odr.setNazivFitnesCentra(t.getFitnesCentar().getNaziv());
+                    odr.setNazivSale(t.getSala().getOznaka());
+                    odr.setOdgovara(true);
+                    odr.setOcenaKorisnika(o.getOcena());
+                    ret.add(odr);
+                }
+
+            }
+
+
+
+
+        }
+        return new ResponseEntity<>(ret, HttpStatus.OK);
+
+
+    }
+
+
 
     @PostMapping(value = ("/rezervisaniTreninzi"), consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<FiltriraniTreninziDTO>> createUser(@RequestBody KorisnikTreninziDTO kDTO) throws Exception {

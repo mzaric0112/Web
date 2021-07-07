@@ -74,6 +74,7 @@ $(document).ready(function(){
                                   console.log("ERROR : ", data);
                               }
                           });
+
              let selektovanRed = 0;
                               let staraBoja = null;
                               $("#terminiTreninga").on('click', 'tr:not(:first-child)', function() {
