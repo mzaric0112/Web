@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +28,7 @@ public class Trening implements Serializable{
     @Column(nullable = false)
     
     private int trajanje;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "trening", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Termin> terminiTreninga = new HashSet<>();
 

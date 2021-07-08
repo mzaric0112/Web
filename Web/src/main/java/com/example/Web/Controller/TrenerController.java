@@ -1,6 +1,7 @@
 package com.example.Web.Controller;
 
 import com.example.Web.Model.Korisnik;
+import com.example.Web.Model.Termin;
 import com.example.Web.Model.Trener;
 import com.example.Web.Model.Trening;
 import com.example.Web.Model.dto.*;
@@ -36,6 +37,28 @@ public class TrenerController {
             trening.setTrajanje(t.getTrajanje());
             trening.setTipTreninga(t.getTipTreninga());
             treninzi.add(trening);
+
+        }
+
+        return new ResponseEntity<>(treninzi, HttpStatus.OK);
+
+    }
+    @PostMapping(value = ("/terminiTrenera"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TerminiTreneraDTO>> terminiTrenera(@RequestBody KorisnikTreninziDTO kDTO) throws Exception {
+        Trener trener = trenerService.findOne(kDTO.getIdKorisnika());
+        List<TerminiTreneraDTO> treninzi = new ArrayList<>();
+        for(Trening t : trener.getListaTreninga()) {
+            for(Termin ter : t.getTerminiTreninga()) {
+                TerminiTreneraDTO trening = new TerminiTreneraDTO();
+                trening.setId(ter.getId());
+                trening.setCena(ter.getCena());
+                trening.setDatumPocetka(ter.getDatumPocetka());
+                trening.setNazivTreninga(ter.getTrening().getNaziv());
+                treninzi.add(trening);
+            }
+
 
         }
 

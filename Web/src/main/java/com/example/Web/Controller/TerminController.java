@@ -269,6 +269,25 @@ public class TerminController {
         return new ResponseEntity<>(noviTermin, HttpStatus.CREATED);
 
     }
+    @PostMapping(value = ("/izmena"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> izmena(@RequestBody IzmenaTerminaDTO kDTO) throws Exception {
+        Trener trener =  trenerService.findOne(kDTO.getIdKorisnika());
+
+        for(Trening t : trener.getListaTreninga()){
+            for(Termin ter : t.getTerminiTreninga()) {
+                if(ter.getId() == kDTO.getIdTermina()) {
+                    ter.setCena(kDTO.getCena());
+                    ter.setDatumPocetka(kDTO.getDatumPocetka());
+                    terminService.update(ter);
+                }
+            }
+        }
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 
 
     @PostMapping(value = ("/rezervisaniTreninzi"), consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

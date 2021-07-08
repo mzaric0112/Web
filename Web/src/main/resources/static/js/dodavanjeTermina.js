@@ -5,7 +5,7 @@ var korisnik = localStorage.getItem('id');
       });
     $.ajax({
         type: "POST",
-        url: "http://localhost:8181/api/trener/treninziTrenera",
+        url: "http://localhost:8181/api/trener/terminiTrenera",
         dataType: "json",
         contentType: "application/json",
         data: obj,
