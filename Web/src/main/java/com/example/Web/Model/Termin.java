@@ -49,14 +49,12 @@ public class Termin implements Serializable{
 
     public Termin(){}
 
-    public Termin( double cena, Date datumPocetka, Date datumKraja, int brojClanova, Trening trening, Sala sala, FitnesCentar fitnesCentar) {
+    public Termin( double cena, Date datumPocetka, Trening trening,
+                   FitnesCentar fitnesCentar) {
 
         this.cena = cena;
         this.datumPocetka = datumPocetka;
-        this.datumKraja = datumKraja;
-        this.brojClanova = brojClanova;
         this.trening = trening;
-        this.sala = sala;
         this.fitnesCentar = fitnesCentar;
     }
 }

@@ -1,12 +1,8 @@
 package com.example.Web.Controller;
 
-import com.example.Web.Model.Clan;
-import com.example.Web.Model.OcenaTreninga;
-import com.example.Web.Model.Termin;
+import com.example.Web.Model.*;
 import com.example.Web.Model.dto.*;
-import com.example.Web.Service.ClanService;
-import com.example.Web.Service.OcenaTreningaService;
-import com.example.Web.Service.TerminService;
+import com.example.Web.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,11 +20,17 @@ public class TerminController {
     private final TerminService terminService;
     private final OcenaTreningaService ocenaTreningaService;
     private final ClanService clanService;
+    private final TrenerService trenerService;
+    private final TreningService treningService;
     @Autowired
-    public TerminController(TerminService terminService, OcenaTreningaService ocenaTreningaService, ClanService clanService) {
+    public TerminController(TerminService terminService, TrenerService trenerService,
+                            OcenaTreningaService ocenaTreningaService, ClanService clanService,
+                            TreningService treningService) {
         this.terminService = terminService;
         this.ocenaTreningaService = ocenaTreningaService;
         this.clanService = clanService;
+        this.trenerService = trenerService;
+        this.treningService = treningService;
     }
 
 
@@ -119,31 +121,9 @@ public class TerminController {
         return new ResponseEntity<>(trazeniTermini, HttpStatus.OK);
     }
 
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TerminDTO> createTermin(@RequestBody TerminDTO tDTO) throws Exception {
-        Termin Termin = new Termin(tDTO.getCena(),  tDTO.getDatumPocetka(), tDTO.getDatumKraja(),tDTO.getBrojClanova(),
-                tDTO.getTrening(), tDTO.getSala(), tDTO.getFitnesCentar());
-        Termin noviTermin = this.terminService.create(Termin);
-        TerminDTO TerminDTO = new TerminDTO(noviTermin.getId(), noviTermin.getCena(), noviTermin.getDatumPocetka(), noviTermin.getDatumKraja(),
-                noviTermin.getBrojClanova(), noviTermin.getTrening(), noviTermin.getSala(), noviTermin.getFitnesCentar());
-        return new ResponseEntity<>(TerminDTO, HttpStatus.CREATED);
 
-    }
 
-    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TerminDTO> updateTermin(@PathVariable Long id,
-                      @RequestBody TerminDTO TerminDTO) throws Exception {
-        Termin Termin = new Termin(TerminDTO.getCena(),TerminDTO.getDatumPocetka(), TerminDTO.getDatumKraja(), TerminDTO.getBrojClanova(),
-                TerminDTO.getTrening(), TerminDTO.getSala(), TerminDTO.getFitnesCentar());
-        Termin.setId(id);
-        Termin izmenjenTermin = terminService.update(Termin);
-        TerminDTO azuriranTermin = new TerminDTO(izmenjenTermin.getId(), izmenjenTermin.getCena(), izmenjenTermin.getDatumPocetka(),
-                izmenjenTermin.getDatumKraja(), izmenjenTermin.getBrojClanova(), izmenjenTermin.getTrening(), izmenjenTermin.getSala(),
-                izmenjenTermin.getFitnesCentar());
-        return new ResponseEntity<>(azuriranTermin, HttpStatus.OK);
 
-    }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteTermin(@PathVariable Long id) {
         this.terminService.delete(id);
@@ -276,6 +256,19 @@ public class TerminController {
 
     }
 
+    @PostMapping(value = ("/kreiranje"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Termin> kreiranje(@RequestBody KreiranjeTerminaDTO kDTO) throws Exception {
+       Trener trener =  trenerService.findOne(kDTO.getKorisnik());
+        Trening trening = treningService.findOne(kDTO.getTrening());
+        Termin noviTermin = new Termin(kDTO.getCena(), kDTO.getDatumPocetka(), trening,
+                trener.getFitnesCentar());
+        Termin t = terminService.create(noviTermin);
+
+        return new ResponseEntity<>(noviTermin, HttpStatus.CREATED);
+
+    }
 
 
     @PostMapping(value = ("/rezervisaniTreninzi"), consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

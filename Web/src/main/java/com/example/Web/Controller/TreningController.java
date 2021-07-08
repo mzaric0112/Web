@@ -1,7 +1,10 @@
 package com.example.Web.Controller;
 
+import com.example.Web.Model.Trener;
 import com.example.Web.Model.Trening;
+import com.example.Web.Model.dto.KorisnikTreninziDTO;
 import com.example.Web.Model.dto.TreningDTO;
+import com.example.Web.Service.TrenerService;
 import com.example.Web.Service.TreningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,9 +20,14 @@ import java.util.List;
 public class TreningController {
 
      private final TreningService treningService;
+     private final TrenerService trenerService;
 
     @Autowired
-    public TreningController(TreningService treningService) {this.treningService = treningService;}
+    public TreningController(TreningService treningService, TrenerService trenerService)
+    {this.treningService = treningService;
+    this.trenerService = trenerService;}
+
+
 
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,6 +69,7 @@ public class TreningController {
         return new ResponseEntity<>(treningDTO, HttpStatus.CREATED);
 
     }
+
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TreningDTO> updateTraining(@PathVariable Long id,

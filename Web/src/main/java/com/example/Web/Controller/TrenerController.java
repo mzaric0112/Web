@@ -2,8 +2,8 @@ package com.example.Web.Controller;
 
 import com.example.Web.Model.Korisnik;
 import com.example.Web.Model.Trener;
-import com.example.Web.Model.dto.KorisnikDTO;
-import com.example.Web.Model.dto.KreiranjeKorisnikaDTO;
+import com.example.Web.Model.Trening;
+import com.example.Web.Model.dto.*;
 import com.example.Web.Service.TrenerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +22,27 @@ public class TrenerController {
     @Autowired
     public TrenerController(TrenerService trenerService) {this.trenerService = trenerService;}
 
+    @PostMapping(value = ("/treninziTrenera"),
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningTreneraDTO>> treninziTrenera(@RequestBody KorisnikTreninziDTO kDTO) throws Exception {
+        Trener trener = trenerService.findOne(kDTO.getIdKorisnika());
+        List<TreningTreneraDTO> treninzi = new ArrayList<>();
+        for(Trening t : trener.getListaTreninga()) {
+            TreningTreneraDTO trening = new TreningTreneraDTO();
+            trening.setId(t.getId());
+            trening.setNaziv(t.getNaziv());
+            trening.setOpis(t.getOpis());
+            trening.setTrajanje(t.getTrajanje());
+            trening.setTipTreninga(t.getTipTreninga());
+            treninzi.add(trening);
 
+        }
+
+        return new ResponseEntity<>(treninzi, HttpStatus.OK);
+
+    }
+    /*
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KorisnikDTO> getUser(@PathVariable("id") Long id)
     {
@@ -86,7 +106,7 @@ public class TrenerController {
     }
 
 
-
+*/
 
 
 
