@@ -18,7 +18,7 @@ public class ClanServiceImpl implements ClanService {
 
     @Override
     public Clan findOne(Long id){
-        Clan korisnik = this.clanRepository.getOne(id);
+        Clan korisnik = this.clanRepository.findById(id).get();
         return korisnik;
     }
     @Override
@@ -45,7 +45,7 @@ public class ClanServiceImpl implements ClanService {
 
     @Override
     public Clan update(Clan korisnik) throws Exception {
-        Clan korisnikZaIzmenu = this.clanRepository.getOne(korisnik.getId());
+        Clan korisnikZaIzmenu = this.clanRepository.findById(korisnik.getId()).get();
         if(korisnik.getId() == null) {
             throw new Exception("User doesn't exist!");
         }

@@ -18,7 +18,7 @@ public class TrenerServiceImpl implements TrenerService {
     public TrenerServiceImpl(TrenerRepository trenerRepository) {this.trenerRepository = trenerRepository; }
     @Override
     public Trener findOne(Long id){
-        Trener korisnik = this.trenerRepository.getOne(id);
+        Trener korisnik = this.trenerRepository.findById(id).get();
         return korisnik;
     }
     @Override
@@ -44,7 +44,7 @@ public class TrenerServiceImpl implements TrenerService {
 
     @Override
     public Trener update(Trener korisnik) throws Exception {
-        Trener korisnikZaIzmenu = this.trenerRepository.getOne(korisnik.getId());
+        Trener korisnikZaIzmenu = this.trenerRepository.findById(korisnik.getId()).get();
         if(korisnik.getId() == null) {
             throw new Exception("User doesn't exist!");
         }

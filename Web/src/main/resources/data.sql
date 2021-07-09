@@ -42,6 +42,7 @@ INSERT INTO ODRADJENI_TRENINZI(CLAN_ID, TRENING_ID) VALUES (1, 1);
 INSERT INTO OCENA_TRENINGA(OCENA, CLAN_ID, TERMIN_ID) VALUES (4, 1, 1);
 INSERT INTO FITNES_CENTAR (naziv, adresa, email, broj_centrale) VALUES ('Atina', 'Beogradska 15', 'atina@gmail.com', '021711163');
 INSERT INTO FITNES_CENTAR (naziv, adresa, email, broj_centrale) VALUES ('Troya', 'Dunavska 12', 'troya@gmail.com', '021778663');
+INSERT INTO ODRADJENI_TRENINZI(CLAN_ID, TRENING_ID) VALUES (1, 2);
 
 
 

@@ -52,7 +52,6 @@ $(document).ready(function(){
                                       data: obj,
                                       success: function (data) {
                                           console.log("SUCCESS : ", data);
-                                        window.location.href = "brisanjeFitnesCentra.html";
 
                                           },
                                       error: function (data) {
@@ -69,7 +68,7 @@ $("#izmeni").click(function() {
         var email = $("#email").val();
         var obj = JSON.stringify({
            "id" : selektovanRed,
-           "naizv" : naziv,
+           "naziv" : naziv,
            "adresa" : adresa,
            "brojCentrale" : brojCentrale,
            "email" : email
@@ -77,19 +76,20 @@ $("#izmeni").click(function() {
            });
                               // console.log("Rezervisan termin ", selektovanRed);
            $.ajax({
-               type: "PUT",
+               type: "POST",
                url: "http://localhost:8181/api/fitnesCentar/izmena",
                dataType: "json",
                contentType: "application/json",
                data: obj,
                success: function (data) {
                console.log("SUCCESS : ", data);
-                //window.location.href = "brisanjeFitnesCentra.html";
+                window.location.href = "brisanjeFitnesCentra.html";
 
                             },
                                       error: function (data) {
                                           alert("Greška!");
                                           console.log("ERROR : ", data);
+                                          window.location.href = "brisanjeFitnesCentra.html";
                                           }
                                });
        });

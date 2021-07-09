@@ -15,6 +15,7 @@ public class TerminiTreneraDTO {
     private Date datumPocetka;
     private String nazivTreninga;
 
+
     public TerminiTreneraDTO(){}
 
 }

@@ -22,7 +22,7 @@ public class OcenaTreningaServiceImpl implements OcenaTreningaService {
 
      @Override
     public OcenaTreninga findOne(Long id){
-        OcenaTreninga OcenaTreninga = this.ocenaTreningaRepository.getOne(id);
+        OcenaTreninga OcenaTreninga = this.ocenaTreningaRepository.findById(id).get();
         return OcenaTreninga;
     }
 
@@ -44,7 +44,7 @@ public class OcenaTreningaServiceImpl implements OcenaTreningaService {
 
     @Override
     public OcenaTreninga update(OcenaTreninga trening) throws Exception {
-        OcenaTreninga treningZaIzmenu = this.ocenaTreningaRepository.getOne(trening.getId());
+        OcenaTreninga treningZaIzmenu = this.ocenaTreningaRepository.findById(trening.getId()).get();
         if(trening.getId() == null) {
             throw new Exception("Trening doesn't exist!");
         }

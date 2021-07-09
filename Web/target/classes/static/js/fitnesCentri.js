@@ -52,7 +52,6 @@ $(document).ready(function(){
                                       data: obj,
                                       success: function (data) {
                                           console.log("SUCCESS : ", data);
-                                        window.location.href = "brisanjeFitnesCentra.html";
 
                                           },
                                       error: function (data) {
@@ -77,14 +76,14 @@ $("#izmeni").click(function() {
            });
                               // console.log("Rezervisan termin ", selektovanRed);
            $.ajax({
-               type: "PUT",
+               type: "POST",
                url: "http://localhost:8181/api/fitnesCentar/izmena",
                dataType: "json",
                contentType: "application/json",
                data: obj,
                success: function (data) {
                console.log("SUCCESS : ", data);
-                //window.location.href = "brisanjeFitnesCentra.html";
+                window.location.href = "brisanjeFitnesCentra.html";
 
                             },
                                       error: function (data) {

@@ -18,7 +18,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public Administrator findOne(Long id){
-        Administrator korisnik = this.administratorRepository.getOne(id);
+        Administrator korisnik = this.administratorRepository.findById(id).get();
         return korisnik;
     }
     @Override
@@ -47,7 +47,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 
     @Override
     public Administrator update(Administrator korisnik) throws Exception {
-        Administrator korisnikZaIzmenu = this.administratorRepository.getOne(korisnik.getId());
+        Administrator korisnikZaIzmenu = this.administratorRepository.findById(korisnik.getId()).get();
         if(korisnik.getId() == null) {
             throw new Exception("User doesn't exist!");
         }

@@ -65,6 +65,31 @@ public class TrenerController {
         return new ResponseEntity<>(treninzi, HttpStatus.OK);
 
     }
+
+
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KorisnikDTO>> getUsers() {
+        List<Trener> korisnici = this.trenerService.findAll();
+
+        List<KorisnikDTO> trazeniKorisnici = new ArrayList<KorisnikDTO>();
+
+        for(Trener k : korisnici) {
+            KorisnikDTO korisnik = new KorisnikDTO(k.getId(), k.getIme(), k.getPrezime(), k.getDatumRodjenja(),
+                    k.getEmail(), k.getTelefon(),  k.getUloga());
+            trazeniKorisnici.add(korisnik);
+        }
+        return new ResponseEntity<>(trazeniKorisnici, HttpStatus.OK);
+    }
+    @PostMapping(value = "/brisanje",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> brisanje(@RequestBody KorisnikTreninziDTO id) {
+        this.trenerService.delete(id.getIdKorisnika());
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
     /*
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KorisnikDTO> getUser(@PathVariable("id") Long id)
@@ -82,19 +107,7 @@ public class TrenerController {
         return new ResponseEntity<>(trazeniKorisnik, HttpStatus.OK);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<KorisnikDTO>> getUsers() {
-        List<Trener> korisnici = this.trenerService.findAll();
 
-        List<KorisnikDTO> trazeniKorisnici = new ArrayList<KorisnikDTO>();
-
-        for(Trener k : korisnici) {
-            KorisnikDTO korisnik = new KorisnikDTO(k.getId(), k.getIme(), k.getPrezime(), k.getDatumRodjenja(),
-                    k.getEmail(), k.getTelefon(),  k.getUloga());
-            trazeniKorisnici.add(korisnik);
-        }
-        return new ResponseEntity<>(trazeniKorisnici, HttpStatus.OK);
-    }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KreiranjeKorisnikaDTO> createUser(@RequestBody KreiranjeKorisnikaDTO kDTO) throws Exception {

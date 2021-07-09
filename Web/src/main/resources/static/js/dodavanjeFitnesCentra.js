@@ -24,7 +24,7 @@ $(document).ready(function(){
         data: obj,
         success: function () {
             alert(obj);
-            window.location.href = "index.html";
+            window.location.href = "brisanjeFitnesCentra.html";
         	},
         error: function (data) {
             alert("Da li se poruka prenela?");

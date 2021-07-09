@@ -88,28 +88,28 @@ $(document).ready(function(){
                                   console.log("Selektovan red ", selektovanRed);      // ispis u konzolu radi provere
                               });
 
- $("#oceni").click(function() {
-              var korisnik = localStorage.getItem('id');
-              var termin = selektovanRed;
-              var ocena = $("#ocena").val().trim();
-                          var obj = JSON.stringify({
-                                         "idKorisnika" : korisnik,
-                                         "idTermina" : termin,
-                                         "ocena" : ocena
-                                 });
+ //$("#oceni").click(function() {
+         //     var korisnik = localStorage.getItem('id');
+         //     var termin = selektovanRed;
+           //   var ocena = $("#ocena").val().trim();
+            //              var obj = JSON.stringify({
+             //                            "idKorisnika" : korisnik,
+              //                           "idTermina" : termin,
+                 //                        "ocena" : ocena
+                //                 });
                         // console.log("Rezervisan termin ", selektovanRed);
-                         $.ajax({
-                                type: "POST",
-                                url: "http://localhost:8181/api/ocenaTermina/ocenjivanje",
-                                dataType: "json",
-                                contentType: "application/json",
-                                data: obj,
-                                success: function (data) {
-                                    console.log("SUCCESS : ", data);
-                                    },
-                                error: function (data) {
-                                    alert("Greška!");
-                                    }
-                                });
-                     });
-     });
+                  //       $.ajax({
+                   //             type: "POST",
+                   //             url: "http://localhost:8181/api/ocenaTermina/ocenjivanje",
+                     //           dataType: "json",
+                     //           contentType: "application/json",
+                       //         data: obj,
+                       //         success: function (data) {
+                        //            console.log("SUCCESS : ", data);
+                          //          },
+                         //       error: function (data) {
+                          //          alert("Greška!");
+                          //          }
+                         //       });
+                 //    });
+    // });

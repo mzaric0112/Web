@@ -1,10 +1,12 @@
 package com.example.Web.Controller;
 
 import com.example.Web.Model.FitnesCentar;
+import com.example.Web.Model.Trener;
 import com.example.Web.Model.dto.FitnesCentarDTO;
 import com.example.Web.Model.dto.KorisnikTreninziDTO;
 import com.example.Web.Repository.FitnesCentarRepository;
 import com.example.Web.Service.FitnesCentarService;
+import com.example.Web.Service.TrenerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,9 +20,12 @@ import java.util.List;
 @RequestMapping(value = "/api/fitnesCentar")
 public class FitnesCentarController {
     private final FitnesCentarService fitnesCentarService;
-
+    private final TrenerService trenerService;
     @Autowired
-    public FitnesCentarController(FitnesCentarService fitnesCentarService) {this.fitnesCentarService = fitnesCentarService;}
+    public FitnesCentarController(FitnesCentarService fitnesCentarService, TrenerService trenerService)
+    {this.fitnesCentarService = fitnesCentarService;
+    this.trenerService = trenerService;
+    }
 
 
      @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,7 +64,7 @@ public class FitnesCentarController {
         return new ResponseEntity<>(fitnesCentarDTO, HttpStatus.CREATED);
 
     }
-    @PutMapping(value = "/izmena",
+    @PostMapping(value = "/izmena",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> izmena(@RequestBody FitnesCentarDTO fcDTO) throws Exception {
@@ -69,6 +74,7 @@ public class FitnesCentarController {
         fitnesCentar.setNaziv(fcDTO.getNaziv());
         fitnesCentar.setEmail(fcDTO.getEmail());
         fitnesCentar.setBrojCentrale(fcDTO.getBrojCentrale());
+        fitnesCentarService.update(fitnesCentar);
 
 
 
@@ -82,6 +88,7 @@ public class FitnesCentarController {
         this.fitnesCentarService.delete(id.getIdKorisnika());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 
 
 }

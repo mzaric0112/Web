@@ -5,7 +5,7 @@ var korisnik = localStorage.getItem('id');
       });
     $.ajax({
         type: "POST",
-        url: "http://localhost:8181/api/trener/terminiTrenera",
+        url: "http://localhost:8181/api/trener/treninziTrenera",
         dataType: "json",
         contentType: "application/json",
         data: obj,
@@ -22,7 +22,9 @@ var korisnik = localStorage.getItem('id');
 
                 row += "</tr>";                                     // završavamo kreiranje reda
 
-                $('#treninzi').append(row);                        // ubacujemo kreirani red u tabelu čiji je id = employees
+                $('#treninzi').append(row);
+                 window.location.href = "izmenaTermina.html";
+                                      // ubacujemo kreirani red u tabelu čiji je id = employees
             }
         },
         error: function (data) {

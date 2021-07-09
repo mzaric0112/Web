@@ -19,7 +19,7 @@ public class TerminServiceImpl implements TerminService {
 
     @Override
     public Termin findOne(Long id){
-        Termin termin = this.terminRepository.getOne(id);
+        Termin termin = this.terminRepository.findById(id).get();
         return termin;
     }
 
@@ -40,7 +40,7 @@ public class TerminServiceImpl implements TerminService {
 
     @Override
     public Termin update(Termin termin) throws Exception {
-        Termin TerminZaIzmenu = this.terminRepository.getOne(termin.getId());
+        Termin TerminZaIzmenu = this.terminRepository.findById(termin.getId()).get();
         if(termin.getId() == null) {
             throw new Exception("Termin ne postoji!");
         }

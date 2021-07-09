@@ -201,6 +201,7 @@ public class TerminController {
                 odr.setNazivSale(t.getSala().getOznaka());
                 odr.setOdgovara(true);
                 ret.add(odr);
+                oznaka = 0;
             }
 
         }

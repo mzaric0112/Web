@@ -26,7 +26,7 @@ public class FitnesCentar implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column
     private String naziv;
     @Column
     private String adresa;

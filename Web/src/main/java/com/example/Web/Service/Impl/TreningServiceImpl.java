@@ -18,7 +18,7 @@ public class TreningServiceImpl implements TreningService {
 
      @Override
     public Trening findOne(Long id){
-        Trening trening = this.treningRepository.getOne(id);
+        Trening trening = this.treningRepository.findById(id).get();
         return trening;
     }
 
@@ -40,7 +40,7 @@ public class TreningServiceImpl implements TreningService {
 
     @Override
     public Trening update(Trening trening) throws Exception {
-        Trening treningZaIzmenu = this.treningRepository.getOne(trening.getId());
+        Trening treningZaIzmenu = this.treningRepository.findById(trening.getId()).get();
         if(trening.getId() == null) {
             throw new Exception("Trening doesn't exist!");
         }

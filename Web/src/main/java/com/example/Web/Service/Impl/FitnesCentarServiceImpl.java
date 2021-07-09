@@ -19,7 +19,7 @@ public class FitnesCentarServiceImpl implements FitnesCentarService {
 
     @Override
     public FitnesCentar findOne(Long id){
-        FitnesCentar fitnesCentar = this.fitnesCentarRepository.getOne(id);
+        FitnesCentar fitnesCentar = this.fitnesCentarRepository.findById(id).get();
         return fitnesCentar;
     }
 
@@ -41,7 +41,7 @@ public class FitnesCentarServiceImpl implements FitnesCentarService {
 
     @Override
     public FitnesCentar update(FitnesCentar fitnesCentar) throws Exception {
-        FitnesCentar fitnesCentarZaIzmenu = this.fitnesCentarRepository.getOne(fitnesCentar.getId());
+        FitnesCentar fitnesCentarZaIzmenu = this.fitnesCentarRepository.findById(fitnesCentar.getId()).get();
         if(fitnesCentar.getId() == null) {
             throw new Exception("Fitness center doesn't exist!");
         }
